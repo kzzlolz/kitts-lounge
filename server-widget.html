@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kitty Crumbs Bakery</title>
+  <title>Kitty Crumbs Bakery - Under Maintenance</title>
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧁</text></svg>">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="🌸 Kitty Crumbs Bakery 🧁">
-  <meta property="og:description" content="Welcome to Kitty Crumbs! Explore our server dashboard, live roster, rules, music, and events!">
+  <meta property="og:description" content="Under Maintenance! Be right back :3">
   <meta property="og:image" content="https://c.tenor.com/yBw98jgTgAoAAAAC/tenor.gif">
   <meta name="theme-color" content="#f8bbd0">
   
@@ -36,58 +36,20 @@
       overflow: auto;
     }
 
-    /* Loading Screen Overlay */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #fce4ec;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-
-    #loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .loader-content {
-      text-align: center;
-      font-size: 1.5rem;
-      color: #880e4f;
-      font-weight: bold;
-      padding: 20px;
-    }
-
-    .loader-spinner {
-      font-size: 3rem;
-      animation: bounce 1s infinite alternate;
-      margin-bottom: 10px;
-    }
-
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-15px); }
-    }
-
-    /* Main Dashboard Shell */
+    /* Main Maintenance Shell */
     #widget-wrapper {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       width: 100%;
-      max-width: 1100px;
-      min-height: 600px;
+      max-width: 600px;
+      min-height: 400px;
       background-color: rgba(62, 44, 52, 0.9);
       border: 4px solid #b3889b;
       border-radius: 20px;
-      padding: 20px;
+      padding: 40px 30px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(8px);
       color: #ffdce5;
@@ -104,462 +66,38 @@
       opacity: 1;
     }
 
-    /* --- SIDEBAR NAVIGATION --- */
-    .sidebar {
-      background-color: rgba(45, 32, 38, 0.85);
-      border-radius: 14px;
-      padding: 16px;
-      border: 2px solid #8c6375;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .sidebar-brand {
-      text-align: center;
+    .maintenance-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #f8bbd0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
     }
 
-    .sidebar-logo {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #f8bbd0;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    .maintenance-title {
+      font-size: 2rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
 
-    .sidebar-brand h2 {
+    .maintenance-message {
       font-size: 1.1rem;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: #ffdce5;
-      padding: 10px 14px;
-      text-align: left;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .nav-btn:hover, .nav-btn.active {
-      background-color: #f48fb1;
-      color: #fff;
-    }
-
-    /* Mini Lofi Player Widget in Sidebar */
-    .lofi-widget {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-      border: 1px solid rgba(248, 187, 208, 0.3);
-    }
-
-    .lofi-title {
-      font-size: 0.75rem;
-      margin-bottom: 6px;
-      color: #f8bbd0;
-    }
-
-    .lofi-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .lofi-btn {
-      background: #f48fb1;
-      border: none;
-      color: white;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
-    .lofi-btn:hover {
-      background: #ec407a;
-    }
-
-    /* --- CONTENT AREA --- */
-    .content-area {
-      background-color: rgba(45, 32, 38, 0.75);
-      border-radius: 14px;
-      border: 2px solid #8c6375;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      min-height: 520px;
-    }
-
-    .tab-pane {
-      display: none;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .tab-pane.active {
-      display: flex;
-    }
-
-    /* Top Header Strip inside Content */
-    .dash-header {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .dash-header h3 {
-      font-size: 1.4rem;
-      color: #fff;
-    }
-
-    .stats-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .stat-badge {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #e91e63;
-      background-color: #ffe0b2;
-      padding: 4px 10px;
-      border-radius: 10px;
-    }
-
-    .stat-badge-total {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #d81b60;
-      background-color: #f8bbd0;
-      padding: 4px 10px;
-      border-radius: 10px;
-    }
-
-    /* --- HOME TAB (Roster & Search) --- */
-    .roster-controls {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .member-search {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid #f8bbd0;
-      border-radius: 8px;
-      padding: 8px 12px;
-      color: white;
-      font-family: 'Fredoka', sans-serif;
-      outline: none;
-    }
-
-    .member-search::placeholder {
       color: #ffccd5;
-    }
-
-    .members-wrapper {
-      flex-grow: 1;
-      max-height: 330px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding-right: 4px;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-    }
-
-    .title-mods { color: #f8bbd0 !important; }
-    .title-bots { color: #90caf9 !important; }
-    .title-members { color: #ffffff !important; }
-
-    .member-grid {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 8px;
-    }
-
-    .member-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background-color: rgba(255, 240, 245, 0.95);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      border: 1px solid #f8bbd0;
-      color: #4a148c;
-    }
-
-    .member-item img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .divider {
-      height: 2px;
-      background-color: rgba(248, 187, 208, 0.3);
-      margin: 8px 0;
-      width: 100%;
-    }
-
-    /* --- RULES / FAQ TAB (Accordions) --- */
-    .accordion-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 390px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .accordion-item {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid #f8bbd0;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .accordion-header {
-      padding: 12px 16px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .accordion-header:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      padding: 0 16px;
-      font-size: 0.9rem;
-      color: #ffccd5;
-      line-height: 1.4;
-    }
-
-    .accordion-item.open .accordion-content {
-      max-height: 200px;
-      padding-bottom: 12px;
-    }
-
-    /* --- EVENTS / CARDS TAB --- */
-    .events-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      max-height: 390px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .feature-card {
-      border-radius: 12px;
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
-      cursor: pointer;
-      border: none;
-      width: 100%;
-      text-align: left;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.06);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    }
-
-    .feature-icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .feature-text-content h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .feature-text-content p {
-      font-size: 0.82rem;
-      opacity: 0.9;
-    }
-
-    .card-qotd {
-      background: linear-gradient(135deg, #ff7675, #fab1a0);
-      color: #ffffff;
-    }
-
-    .card-events {
-      background: linear-gradient(135deg, #a29bfe, #74b9ff);
-      color: #ffffff;
-    }
-
-    .card-movies {
-      background: linear-gradient(135deg, #fd79a8, #e84393);
-      color: #ffffff;
-    }
-
-    /* --- POPUP MODAL STYLES --- */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99999;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-box {
-      background-color: #3e2c34;
-      border: 3px solid #b3889b;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 550px;
-      max-height: 80vh;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      color: #ffdce5;
-      position: relative;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid rgba(248, 187, 208, 0.3);
-      padding-bottom: 12px;
-      margin-bottom: 15px;
-      position: relative;
-    }
-
-    .modal-header h3 {
-      font-size: 1.3rem;
-      color: #fff;
-    }
-
-    .modal-close {
-      background: transparent;
-      border: none;
-      color: #ffdce5;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 4px 8px;
-      line-height: 1;
-    }
-
-    .modal-close:hover {
-      color: #ff80ab;
-    }
-
-    .modal-body {
-      overflow-y: auto;
-      flex-grow: 1;
-      font-size: 0.9rem;
+      margin-bottom: 30px;
       line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-right: 4px;
-      margin-bottom: 15px;
     }
 
-    .modal-body ul {
-      padding-left: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .footer-action {
-      margin-top: auto;
-    }
-
-    /* Hover Pop Effect for ALL Discord Buttons */
     .server-invite-link {
-      display: block;
-      width: 100%;
-      text-align: center;
+      display: inline-block;
       background-color: #f48fb1;
       color: #ffffff;
       text-decoration: none;
-      padding: 11px;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
       font-weight: 600;
       box-shadow: 0 4px 10px rgba(244, 143, 177, 0.3);
       transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -569,25 +107,6 @@
       transform: translateY(-2px);
       background-color: #f06292;
       box-shadow: 0 6px 15px rgba(240, 98, 146, 0.4);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      #widget-wrapper {
-        grid-template-columns: 1fr;
-        height: auto;
-      }
-      .sidebar {
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
-      }
-      .nav-links {
-        flex-direction: row;
-      }
-      .lofi-widget, .sidebar-brand {
-        display: none;
-      }
     }
 
     /* Floating Cupcakes Background Animation */
@@ -629,438 +148,31 @@
       85% { opacity: 0.9; }
       100% { transform: translateY(-90vh) rotate(-25deg); opacity: 0; }
     }
-
-    /* Mobile Portrait Warning Banner */
-    .mobile-rotate-warning {
-      display: none;
-      background-color: #ffe0b2;
-      color: #880e4f;
-      text-align: center;
-      padding: 8px 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      border-bottom: 2px solid #f8bbd0;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    @media (max-width: 768px) and (orientation: portrait) {
-      .mobile-rotate-warning {
-        display: flex;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <div id="loading-screen">
-    <div class="loader-content">
-      <div class="loader-spinner">🧁</div>
-      <p>Baking the webpage...</p>
-      <p style="font-size: 0.8rem; opacity: 0.8; margin-top: 8px;">Note: Service might still be waking up, please be patient! 💤</p>
-    </div>
-  </div>
-
-  <div id="rule-modal" class="modal-overlay" onclick="closeModalOnOutside(event)">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="modal-title">Rules</h3>
-        <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body" id="modal-content-area">
-        </div>
-      <div class="footer-action">
-        <a class="server-invite-link" id="modal-invite-btn" href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener">Join Discord Server</a>
-      </div>
-    </div>
-  </div>
-
   <div id="widget-wrapper">
-
-    <div class="mobile-rotate-warning">
-      <i class="fa-solid fa-mobile-screen-button fa-rotate-90"></i> Tip: Rotate your phone sideways for a cozier view! ✨
+    <img src="https://i.ibb.co/tTND3MRX/Untitled-design.png" alt="Kitty Crumbs Logo" class="maintenance-logo">
+    <h1 class="maintenance-title">Under Maintenance!</h1>
+    <p class="maintenance-message">We are baking up some fresh updates for the bakery. We'll be right back :3</p>
+    <div>
+      <a class="server-invite-link" href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Join Discord Server</a>
     </div>
-    
-    <div class="sidebar">
-      <div>
-        <div class="sidebar-brand">
-          <img src="https://i.ibb.co/tTND3MRX/Untitled-design.png" alt="Kitty Crumbs Logo" class="sidebar-logo">
-          <h2 id="brand-title">Kitty Crumbs</h2>
-        </div>
-        <div class="nav-links">
-          <button class="nav-btn active" onclick="switchTab('home-tab', this)"><i class="fa-solid fa-house"></i> Home / Roster</button>
-          <button class="nav-btn" onclick="switchTab('rules-tab', this)"><i class="fa-solid fa-book-open"></i> Bakery Rules</button>
-          <button class="nav-btn" onclick="switchTab('events-tab', this)"><i class="fa-solid fa-cookie-bite"></i> Community Treats</button>
-        </div>
-      </div>
-
-      <div>
-        <div class="lofi-widget">
-          <div class="lofi-title">🎵 Bakery Lofi Beats</div>
-          <div class="lofi-controls">
-            <button class="lofi-btn" id="play-lofi-btn" onclick="toggleLofi()"><i class="fa-solid fa-volume-xmark" id="lofi-icon"></i></button>
-          </div>
-          <audio id="lofi-audio" autoplay muted loop src="https://stream.zeno.fm/f3wvbbqmdg8uv"></audio>
-        </div>
-        
-        <div style="text-align: center; font-size: 0.7rem; opacity: 0.5; margin-top: 10px;">
-          Kitty Crumbs v1.6 🧁
-        </div>
-      </div>
-    </div>
-
-    <div class="content-area">
-
-      <div id="home-tab" class="tab-pane active">
-        <div class="dash-header">
-          <h3 id="server-name">Kitty Crumbs Bakery</h3>
-          <div class="stats-container">
-            <span class="stat-badge" id="online-count">0 Online</span>
-            <span class="stat-badge-total" id="total-count-header">Total: --</span>
-          </div>
-        </div>
-
-        <div class="roster-controls">
-          <input type="text" id="member-search" class="member-search" placeholder="🔍 Search online members or staff..." oninput="filterMembers()">
-        </div>
-
-        <div class="members-wrapper">
-          <div>
-            <div class="section-title title-mods">🌸 ᴏɴʟɪɴᴇ ᴍᴏᴅᴇʀᴀᴛᴏʀs 🌸</div>
-            <ul id="mod-list" class="member-grid"></ul>
-          </div>
-
-          <div class="divider"></div>
-
-          <div>
-            <div class="section-title title-bots">🍰 ᴏɴʟɪɴᴇ ʙᴏᴛs 🍰</div>
-            <ul id="bot-list" class="member-grid"></ul>
-          </div>
-
-          <div class="divider"></div>
-
-          <div>
-            <div class="section-title title-members">✨ ᴏɴʟɪɴᴇ ᴍᴇᴍʙᴇʀs ✨</div>
-            <ul id="member-list" class="member-grid"></ul>
-          </div>
-        </div>
-
-        <div class="footer-action">
-          <a id="invite-btn" class="server-invite-link" href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener">Join Discord Server</a>
-        </div>
-      </div>
-
-      <div id="rules-tab" class="tab-pane">
-        <div class="dash-header">
-          <h3>Bakery Rules</h3>
-          <span class="stat-badge">Important</span>
-        </div>
-        <div class="accordion-list">
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">1. Harassment Policy <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">Do not harass anyone on the server. Treat everyone with sweetness and respect.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">2. Begging Restrictions <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">Do not beg for roles, currency, or any other applicable content.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">3. Gambling <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">Do not coordinate or participate in illegal gambling.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">4. Zero Tolerance Hate Speech <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">No witch hunting, sexism, racism, or hate speech.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">5. Spam & Self-Promotion <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">6. NSFW Content <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">No NSFW content or NSFW comments about other content, users, or applicable things.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">7. Impersonation <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">No impersonating other staff members or users under any circumstances.</div>
-          </div>
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">8. Discord Terms of Service (TOS) <i class="fa-solid fa-chevron-down"></i></div>
-            <div class="accordion-content">Follow Discord's Terms of Service at all times. Failure to follow these rules will result in punishment.</div>
-          </div>
-        </div>
-      </div>
-
-      <div id="events-tab" class="tab-pane">
-        <div class="dash-header">
-          <h3>Events & Activities</h3>
-          <span class="stat-badge-total">Click for Rules</span>
-        </div>
-        <div class="events-grid">
-          <button class="feature-card card-qotd" onclick="openModal('qotd')">
-            <div class="feature-icon-box"><i class="fa-solid fa-comments"></i></div>
-            <div class="feature-text-content">
-              <h4>Sweet QOTD Chatter</h4>
-              <p>Daily questions, engaging conversations & fun thoughts!</p>
-            </div>
-          </button>
-          
-          <button class="feature-card card-events" onclick="openModal('events')">
-            <div class="feature-icon-box"><i class="fa-solid fa-trophy"></i></div>
-            <div class="feature-text-content">
-              <h4>Community Events & Minigames</h4>
-              <p>Win exclusive rewards, prizes & take part in fun activities!</p>
-            </div>
-          </button>
-          
-          <button class="feature-card card-movies" onclick="openModal('movies')">
-            <div class="feature-icon-box"><i class="fa-solid fa-film"></i></div>
-            <div class="feature-text-content">
-              <h4>Cozy Movie Nights</h4>
-              <p>Grab your popcorn and stream films together with everyone!</p>
-            </div>
-          </button>
-        </div>
-      </div>
-
+    <div style="font-size: 0.75rem; opacity: 0.5; margin-top: 30px;">
+      Kitty Crumbs v1.6 🧁
     </div>
   </div>
 
   <script>
-    const MOD_ROLE_ID = "1528305985519751178";
-    const BOT_ROLE_ID = "1526913039457190050";
-    const REFRESH_INTERVAL = 5000; 
-
-    let globalMembersData = { mods: [], bots: [], members: [] };
-
-    // Rule sets for modals with customized button text & invite links
-    const ruleData = {
-      qotd: {
-        title: "QOTD Rules",
-        inviteUrl: "https://discord.gg/8waS8YxVu9",
-        buttonText: "Join answering questions!",
-        html: `
-          <ul>
-            <li>You may type any answer based on the topic and question that was given.</li>
-            <li>Do not make fun of others because of their answers. Let everyone type what they want.</li>
-            <li>Respect others, especially staff members. We have the right to delete your message content if it breaks any of these rules.</li>
-            <li>No NSFW content unless the question is NSFW itself.</li>
-            <li>No spamming, bulky messages are accepted unless it contains NSFW material (non-applicable for NSFW questions) or nonsense.</li>
-          </ul>
-        `
-      },
-      events: {
-        title: "Events Rules",
-        inviteUrl: "https://discord.gg/8aTFtqX6Rx",
-        buttonText: "Start playing fun events!",
-        html: `
-          <ul>
-            <li>You may participate in events hosted by the @Events Host.</li>
-            <li>No harassing other members, especially staff members and the Event Host.</li>
-            <li>Do not impersonate the Events Host or staff members.</li>
-            <li>No cheating. You will be banned from being able to participate in future events.</li>
-            <li>No hate speech, racism, or sexism.</li>
-            <li>No targeting event participants and the event host.</li>
-          </ul>
-        `
-      },
-      movies: {
-        title: "Movie Night Rules",
-        inviteUrl: "https://discord.gg/MWD8EDzkzh",
-        buttonText: "An immersive experience awaits you...",
-        html: `
-          <ul>
-            <li>No spamming or sending bulky messages.</li>
-            <li><strong>No spoiling of the movie</strong> (You will be muted for a week!).</li>
-            <li>No NSFW content or NSFW comments about the movie or the characters (non-applicable to NSFW/18+ movies).</li>
-            <li>Don't be an asshole and ruin the fun (ygwim).</li>
-            <li>Please be punctual. The theatre opens 15 minutes before the movie night begins.</li>
-            <li>There will be no repeats, the movie will be continuous until the movie night ends.</li>
-            <li>No begging of any content. This includes begging to repeat a scene.</li>
-          </ul>
-        `
-      }
-    };
-
-    // Modal Control Functions
-    function openModal(type) {
-      const modal = document.getElementById('rule-modal');
-      const titleEl = document.getElementById('modal-title');
-      const contentEl = document.getElementById('modal-content-area');
-      const inviteLinkEl = document.getElementById('modal-invite-btn');
-      
-      if (ruleData[type]) {
-        titleEl.innerText = ruleData[type].title;
-        contentEl.innerHTML = ruleData[type].html;
-        
-        if (inviteLinkEl && ruleData[type].inviteUrl) {
-          inviteLinkEl.href = ruleData[type].inviteUrl;
-          inviteLinkEl.innerText = ruleData[type].buttonText;
-        }
-
-        modal.classList.add('active');
-      }
-    }
-
-    function closeModal() {
-      document.getElementById('rule-modal').classList.remove('active');
-    }
-
-    function closeModalOnOutside(event) {
-      if (event.target.id === 'rule-modal') {
-        closeModal();
-      }
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
+    // Simple script to trigger the slide-up animation on load
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('widget-wrapper').classList.add('slide-up');
+      }, 100);
     });
-    
-    // Tab Navigation Switcher
-    function switchTab(tabId, btnElement) {
-      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-      
-      document.getElementById(tabId).classList.add('active');
-      btnElement.classList.add('active');
-    }
-
-    // Accordion Toggle for Rules
-    function toggleAccordion(header) {
-      const item = header.parentElement;
-      const isOpen = item.classList.contains('open');
-      
-      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
-      
-      if (!isOpen) {
-        item.classList.add('open');
-      }
-    }
-
-    // Lofi Player Controls (Handles unmute/mute toggling nicely)
-    function toggleLofi() {
-      const audio = document.getElementById('lofi-audio');
-      const icon = document.getElementById('lofi-icon');
-      
-      if (audio.muted) {
-        audio.muted = false;
-        audio.play().catch(e => console.log("Audio play blocked:", e));
-        icon.className = "fa-solid fa-pause";
-      } else if (audio.paused) {
-        audio.play().catch(e => console.log("Audio play blocked:", e));
-        icon.className = "fa-solid fa-pause";
-      } else {
-        audio.pause();
-        icon.className = "fa-solid fa-play";
-      }
-    }
-
-    // Search / Filter Members Function
-    function filterMembers() {
-      const query = document.getElementById('member-search').value.toLowerCase();
-      renderLists(globalMembersData, query);
-    }
-
-    function hideLoader() {
-      const loader = document.getElementById('loading-screen');
-      const widget = document.getElementById('widget-wrapper');
-      
-      if (loader && !loader.classList.contains('hidden')) {
-        loader.classList.add('hidden');
-      }
-      if (widget) {
-        widget.classList.add('slide-up');
-      }
-    }
-
-    // 25-Second Failsafe Timer so users never get stuck if something lags
-    const failsafeTimeout = setTimeout(() => {
-      hideLoader();
-    }, 25000);
-
-    async function loadDiscordWidget() {
-      try {
-        const botResponse = await fetch('https://serverwidget.onrender.com/api/guild-data');
-        const botData = await botResponse.json();
-
-        if (botData.server_name) {
-          document.getElementById('server-name').innerText = botData.server_name;
-          document.getElementById('brand-title').innerText = botData.server_name;
-        }
-
-        if (botData.total_members !== undefined) {
-          document.getElementById('total-count-header').innerText = `Total: ${botData.total_members}`;
-        }
-
-        if (botData.members && Array.isArray(botData.members)) {
-          globalMembersData = botData;
-          filterMembers();
-        }
-
-        // DATA IS RECEIVED SUCCESSFULLY -> Hide loader immediately & cancel failsafe!
-        clearTimeout(failsafeTimeout);
-        hideLoader();
-
-      } catch (e) {
-        console.error('Error fetching bot server data:', e);
-        // Even if it fails, hide the loader after an error so the page opens
-        clearTimeout(failsafeTimeout);
-        hideLoader();
-      }
-    }
-    
-    function renderLists(data, filterQuery = '') {
-      const modList = document.getElementById('mod-list');
-      const botList = document.getElementById('bot-list');
-      const memberList = document.getElementById('member-list');
-
-      modList.innerHTML = '';
-      botList.innerHTML = '';
-      memberList.innerHTML = '';
-
-      let onlineCount = 0;
-
-      const appendItem = (listElement, member) => {
-        const nameText = (member.display_name || member.username).toLowerCase();
-        if (filterQuery && !nameText.includes(filterQuery)) return;
-
-        const li = document.createElement('li');
-        li.className = 'member-item';
-
-        const avatar = document.createElement('img');
-        avatar.src = member.avatar_url;
-        avatar.alt = member.username;
-
-        const name = document.createElement('span');
-        name.innerText = member.display_name || member.username;
-
-        li.appendChild(avatar);
-        li.appendChild(name);
-        listElement.appendChild(li);
-      };
-
-      data.members.forEach(member => {
-        if (member.status === 'offline') return;
-        onlineCount++;
-
-        if (member.roles && member.roles.includes(MOD_ROLE_ID)) {
-          appendItem(modList, member);
-        } else if ((member.roles && member.roles.includes(BOT_ROLE_ID)) || member.bot) {
-          appendItem(botList, member);
-        } else {
-          appendItem(memberList, member);
-        }
-      });
-
-      document.getElementById('online-count').innerText = `${onlineCount} Online`;
-    }
-
-    loadDiscordWidget();
-    setInterval(loadDiscordWidget, REFRESH_INTERVAL);
   </script>
+
 <!-- Default Statcounter code for Kitty Crumbs
 https://kzzlolz.github.io/serverwidget/server-widget.html
 -->
