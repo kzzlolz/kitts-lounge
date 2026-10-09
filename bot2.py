@@ -36,6 +36,7 @@ def get_guild():
 
 
 def refresh_member_data(guild):
+    await guild.chunk(cache=True)
     members = list(guild.members)
     member_list = []
 
@@ -76,7 +77,6 @@ async def update_guild_data():
         return
 
     try:
-        await guild.chunk(cache=True)
         refresh_member_data(guild)
         print(
             f"Loaded {len(guild_data['members'])} human members "
