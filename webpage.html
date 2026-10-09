@@ -1,883 +1,1083 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitt's Lounge</title>
+  
+  <link rel="icon" href="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg">
 
-<title>Kittt's Profile</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="🌸 Kitt's Lounge 🐾">
+  <meta property="og:description" content="Stupidly cozy ^^">
+  <meta property="og:image" content="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg">
+  <meta name="theme-color" content="#1a0205">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Link Preview -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kittt's Profile">
-<meta property="og:description" content="Something little about me ♡ ">
-<meta property="og:image" content="https://i.ibb.co/SXm9dhtt/13e349bebec8c99c845417a4cb0fcf9c.jpg">
-<meta property="og:url" content="https://kzzlolz.github.io/kittt/">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kittt's Profile">
-<meta name="twitter:description" content="Something little about me ♡ ">
-<meta name="twitter:image" content="https://i.ibb.co/SXm9dhtt/13e349bebec8c99c845417a4cb0fcf9c.jpg">
-
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(72, 190, 210, 0.75),
-            rgba(255, 255, 255, 0.95)
-        ),
-        url("https://media.giphy.com/media/l0MYB8Ory7HjuBxK0/giphy.gif");
-
-    background-size: cover;
-    background-position: center;
-
-    font-family: Arial, sans-serif;
-}
-
-
-/* Floating hearts */
-
-.heart {
-    position: fixed;
-    color: crimson;
-    opacity: 0.4;
-    font-size: 25px;
-    pointer-events: none;
-    animation: floatHeart 7s linear infinite;
-}
-
-.heart:nth-child(1) {
-    left: 10%;
-    bottom: -30px;
-    animation-delay: 0s;
-}
-
-.heart:nth-child(2) {
-    left: 25%;
-    bottom: -40px;
-    animation-delay: 2s;
-}
-
-.heart:nth-child(3) {
-    left: 50%;
-    bottom: -20px;
-    animation-delay: 4s;
-}
-
-.heart:nth-child(4) {
-    left: 75%;
-    bottom: -30px;
-    animation-delay: 1s;
-}
-
-.heart:nth-child(5) {
-    left: 90%;
-    bottom: -40px;
-    animation-delay: 3s;
-}
-
-@keyframes floatHeart {
-    0% {
-        transform: translateY(0) scale(0.8) rotate(0deg);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    50% {
-        transform: translateY(-50vh) scale(1.1) rotate(15deg);
+    body {
+      background: url("https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ffab1a88641f559fbefdcbe5f296b5bb.gif") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Fredoka', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow: auto;
+      color: #ffdce5;
     }
 
-    100% {
-        transform: translateY(-110vh) scale(0.8) rotate(-15deg);
-    }
-}
-
-
-/* Entire layout */
-
-.layout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-}
-
-
-/* Main widget */
-
-.widget {
-    width: 850px;
-    max-width: 70vw;
-    padding: 22px;
-
-    border: 3px solid rgba(54, 190, 195, 0.8);
-    border-radius: 25px;
-
-    background: rgba(255, 255, 255, 0.28);
-    backdrop-filter: blur(15px);
-
-    box-shadow:
-        0 0 15px rgba(44, 190, 200, 0.8),
-        0 0 45px rgba(44, 190, 200, 0.35);
-
-    animation: widgetFloat 4s ease-in-out infinite;
-
-    transform-style: preserve-3d;
-    transition: transform 0.15s ease;
-}
-
-@keyframes widgetFloat {
-    0%, 100% {
-        transform: translateY(0);
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #120104, #260308);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      padding: 20px;
     }
 
-    50% {
-        transform: translateY(-5px);
-    }
-}
-
-
-/* Profile */
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 18px;
-}
-
-.avatar-container {
-    position: relative;
-    width: 85px;
-    height: 85px;
-}
-
-.avatar {
-    width: 85px;
-    height: 85px;
-
-    border-radius: 50%;
-    border: 3px solid white;
-
-    object-fit: cover;
-
-    box-shadow:
-        0 0 12px rgba(255,255,255,0.9),
-        0 0 25px rgba(54,190,195,0.8);
-}
-
-.avatar-decoration {
-    position: absolute;
-    inset: -7px;
-
-    border: 2px dashed rgba(255,255,255,0.9);
-
-    border-radius: 50%;
-
-    animation: spinDecoration 8s linear infinite;
-}
-
-@keyframes spinDecoration {
-    from {
-        transform: rotate(0deg);
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-/* Username */
-
-.username {
-    font-family: "Press Start 2P", monospace;
-    font-size: 22px;
-
-    background: linear-gradient(
-        90deg,
-        white,
-        #55d9ff,
-        white,
-        #55d9ff,
-        white
-    );
-
-    background-size: 250% auto;
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    animation: prism 3s linear infinite;
-}
-
-@keyframes prism {
-    from {
-        background-position: 0% center;
+    .loader-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ff4d6d;
+      box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
+      margin-bottom: 15px;
+      animation: pulseLogo 1.5s infinite alternate;
     }
 
-    to {
-        background-position: 250% center;
-    }
-}
-
-.pronouns {
-    margin-top: 8px;
-
-    font-family: "Dancing Script", cursive;
-    font-size: 23px;
-
-    color: #ff77aa;
-}
-
-
-/* About */
-
-.about {
-    padding: 22px;
-
-    min-height: 170px;
-
-    border-radius: 18px;
-
-    background: rgba(8, 65, 95, 0.82);
-
-    border: 1px solid rgba(120, 220, 240, 0.5);
-
-    box-shadow:
-        inset 0 0 20px rgba(0, 20, 40, 0.35),
-        0 0 15px rgba(20, 120, 150, 0.25);
-
-    margin-bottom: 20px;
-}
-
-.about-title {
-    font-family: "Press Start 2P", monospace;
-    font-size: 12px;
-
-    color: #bff6ff;
-
-    margin-bottom: 15px;
-}
-
-.about-text {
-    color: #d9f7ff;
-
-    font-size: 16px;
-    line-height: 1.7;
-}
-
-.about-text p {
-    margin: 0 0 15px 0;
-}
-
-.about-text p:last-child {
-    margin-bottom: 0;
-}
-
-
-/* Stats */
-
-.stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-
-    margin-bottom: 20px;
-}
-
-.stat {
-    padding: 15px;
-
-    border-radius: 15px;
-
-    background: rgba(8, 65, 95, 0.72);
-
-    border: 1px solid rgba(120, 220, 240, 0.45);
-
-    box-shadow:
-        inset 0 0 15px rgba(0, 20, 40, 0.25),
-        0 0 10px rgba(20, 120, 150, 0.18);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.stat:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        inset 0 0 15px rgba(0, 20, 40, 0.25),
-        0 0 18px rgba(54, 190, 195, 0.35);
-}
-
-.stat-label {
-    color: #bff6ff;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    margin-bottom: 7px;
-}
-
-.stat-value {
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: bold;
-}
-
-
-/* Music Player */
-
-.music-player {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    padding: 14px;
-
-    margin-bottom: 20px;
-
-    border-radius: 18px;
-
-    background: rgba(8, 65, 95, 0.7);
-
-    border: 1px solid rgba(120, 220, 240, 0.5);
-
-    box-shadow:
-        inset 0 0 15px rgba(0, 20, 40, 0.25),
-        0 0 12px rgba(20, 120, 150, 0.2);
-}
-
-.album {
-    width: 70px;
-    height: 70px;
-
-    flex-shrink: 0;
-
-    object-fit: cover;
-
-    border-radius: 12px;
-
-    border: 2px solid rgba(255,255,255,0.7);
-
-    box-shadow:
-        0 0 10px rgba(54,190,195,0.6);
-}
-
-.song-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.song-name {
-    color: white;
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-    margin-bottom: 5px;
-}
-
-.artist {
-    color: #bff6ff;
-
-    font-size: 14px;
-
-    margin-bottom: 12px;
-}
-
-.progress {
-    width: 100%;
-    height: 5px;
-
-    overflow: hidden;
-
-    border-radius: 10px;
-
-    background: rgba(255,255,255,0.25);
-}
-
-.progress-fill {
-    width: 0%;
-    height: 100%;
-
-    border-radius: 10px;
-
-    background: #55d9ff;
-
-    animation: musicProgress 60s linear infinite;
-}
-
-@keyframes musicProgress {
-    0% {
-        width: 0%;
+    @keyframes pulseLogo {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
     }
 
-    100% {
-        width: 100%;
-    }
-}
-
-.play-button {
-    width: 42px;
-    height: 42px;
-
-    flex-shrink: 0;
-
-    border: none;
-    border-radius: 50%;
-
-    background: rgba(54,190,195,0.8);
-
-    color: white;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.play-button:hover {
-    transform: scale(1.12);
-
-    background: rgba(44,170,185,1);
-
-    box-shadow:
-        0 0 15px rgba(54,190,195,0.7);
-}
-
-
-/* Buttons */
-
-.links {
-    display: flex;
-    gap: 15px;
-}
-
-.link-button {
-    flex: 1;
-
-    padding: 14px;
-
-    border-radius: 15px;
-
-    text-decoration: none;
-
-    text-align: center;
-
-    color: white;
-
-    font-weight: bold;
-
-    background: rgba(40,160,175,0.7);
-
-    border: 1px solid rgba(255,255,255,0.5);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
-}
-
-.link-button:hover {
-    transform: translateY(-7px) scale(1.04);
-
-    background: rgba(30,140,160,0.9);
-
-    box-shadow:
-        0 10px 25px rgba(30,150,160,0.35);
-}
-
-
-/* Side banner */
-
-.banner-frame {
-    width: 280px;
-    aspect-ratio: 9 / 16;
-
-    flex-shrink: 0;
-
-    overflow: hidden;
-
-    border-radius: 22px;
-
-    border: 3px solid rgba(54, 190, 195, 0.8);
-
-    background: rgba(255,255,255,0.18);
-
-    box-shadow:
-        0 0 15px rgba(44,190,200,0.8),
-        0 0 35px rgba(44,190,200,0.35);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.banner-frame:hover {
-    transform: translateY(-5px) scale(1.02);
-
-    box-shadow:
-        0 0 20px rgba(44,190,200,0.9),
-        0 0 45px rgba(44,190,200,0.45);
-}
-
-.banner {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: contain;
-
-    border-radius: 18px;
-}
-
-
-/* Mobile */
-
-@media (max-width: 900px) {
-
-    .layout {
-        flex-direction: column;
-
-        overflow-y: auto;
-        max-height: 100vh;
+    .loader-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
     }
 
-    .widget {
-        width: 850px;
-        max-width: 92vw;
+    .loader-bar-container {
+      width: 260px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #ff4d6d;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
     }
 
-    .banner-frame {
-        width: 220px;
-    }
-}
-
-@media (max-width: 650px) {
-
-    .widget {
-        padding: 15px;
+    .loader-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #c9184a, #ff4d6d);
+      border-radius: 6px;
+      transition: width 0.2s ease;
     }
 
-    .username {
-        font-size: 15px;
+    .loader-status {
+      font-size: 0.9rem;
+      color: #ffb3c1;
+      font-style: italic;
+      margin-bottom: 25px;
+      min-height: 24px;
     }
 
-    .links {
-        flex-direction: column;
+    .loading-tip {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      max-width: 400px;
+      text-align: center;
+      line-height: 1.4;
+      padding: 0 10px;
+      color: #ff8fa3;
+      transition: opacity 0.5s ease-in-out;
     }
 
-    .stats {
+    #hello-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #120104, #260308);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #hello-screen.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hello-title {
+      font-size: 2.6rem;
+      color: #fff;
+      margin-bottom: 30px;
+      font-weight: 600;
+      text-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
+      line-height: 1.3;
+      white-space: pre-line;
+      min-height: 130px;
+    }
+
+    .enter-btn {
+      background: linear-gradient(135deg, #800f2f, #c9184a);
+      border: 2px solid #ff4d6d;
+      color: #fff;
+      padding: 12px 36px;
+      font-size: 1.1rem;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(201, 24, 74, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .enter-btn:hover {
+      background: linear-gradient(135deg, #c9184a, #ff4d6d);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(255, 77, 109, 0.6);
+    }
+
+    .main-page-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    #widget-wrapper {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      width: 100%;
+      min-height: 580px;
+      background: linear-gradient(145deg, #1a0205, #26040a);
+      border: 3px solid #590d22;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      color: #ffdce5;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: transform 0.5s ease, opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, border 0.5s ease;
+      pointer-events: none;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-width: 0;
+      visibility: hidden;
+    }
+
+    #widget-wrapper.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      max-height: 700px;
+      padding: 20px;
+      border-width: 3px;
+      visibility: visible;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #140103, #1f0307);
+      border-radius: 14px;
+      padding: 16px;
+      border: 2px solid #420716;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar-brand {
+      text-align: center;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ff4d6d;
+      box-shadow: 0 4px 12px rgba(201, 24, 74, 0.3);
+    }
+
+    .sidebar-brand h2 {
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #ffdce5;
+      padding: 10px 14px;
+      text-align: left;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(201, 24, 74, 0.2);
+      color: #ffb3c1;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #800f2f, #c9184a);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(128, 15, 47, 0.4);
+    }
+
+    .content-area {
+      background: linear-gradient(145deg, #160104, #210308);
+      border-radius: 14px;
+      border: 2px solid #420716;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-height: 500px;
+    }
+
+    .tab-pane {
+      display: none;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .tab-pane.active {
+      display: flex;
+    }
+
+    .dash-header {
+      background: linear-gradient(135deg, #2b040a, #38050e);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border: 1px solid #66071a;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .dash-header h3 {
+      font-size: 1.3rem;
+      color: #fff;
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .stat-badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #800f2f, #c9184a);
+      padding: 4px 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(128, 15, 47, 0.4);
+    }
+
+    .members-wrapper {
+      flex-grow: 1;
+      max-height: 380px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-right: 4px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .title-owners { color: #ff4d6d !important; }
+    .title-admins { color: #ff758f !important; }
+    .title-mods { color: #ff8fa3 !important; }
+    .title-members { color: #ffffff !important; }
+
+    .member-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 8px;
+    }
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #2b050b, #380710);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      border: 1px solid #590d22;
+      color: #ffdce5;
+    }
+
+    .member-item img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #ff4d6d;
+    }
+
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #590d22, transparent);
+      margin: 8px 0;
+      width: 100%;
+    }
+
+    .rules-content {
+      flex-grow: 1;
+      overflow-y: auto;
+      background: rgba(43, 5, 11, 0.4);
+      border: 1px solid #590d22;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #ffccd5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .rules-content ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 100%;
+    }
+
+    .events-grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      flex-grow: 1;
+      gap: 10px;
+      max-height: 400px;
+    }
+
+    .feature-card {
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border: 1px solid #590d22;
+      color: #ffffff;
+      background: linear-gradient(135deg, #2b050b, #380710);
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      text-align: left;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #380710, #4a0916);
+      border-color: #ff4d6d;
+    }
+
+    .feature-card h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ff4d6d;
+    }
+
+    .feature-card p {
+      font-size: 0.82rem;
+      opacity: 0.85;
+      line-height: 1.3;
+      color: #ffb3c1;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(10, 1, 2, 0.75);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      background: linear-gradient(145deg, #1c0205, #2b050b);
+      border: 3px solid #800f2f;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 520px;
+      max-height: 85vh;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+      color: #ffdce5;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(255, 77, 109, 0.3);
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: #ffdce5;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #ff4d6d;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      flex-grow: 1;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #ffccd5;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .server-invite-link {
+      display: inline-block;
+      width: auto;
+      min-width: 160px;
+      text-align: center;
+      background: linear-gradient(135deg, #800f2f, #c9184a);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(128, 15, 47, 0.4);
+      border: 1px solid #ff4d6d;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .server-invite-link:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #c9184a, #ff4d6d);
+      box-shadow: 0 6px 18px rgba(255, 77, 109, 0.6);
+    }
+
+    .external-footer-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .dynamic-tip-container {
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-style: italic;
+      color: #ffdce5;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+      min-height: 20px;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .interface-toggle-btn {
+      background: linear-gradient(135deg, #800f2f, #c9184a);
+      border: 2px solid #ff4d6d;
+      opacity: 0.6;
+      color: #fff;
+      padding: 8px 24px;
+      font-size: 0.95rem;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+    }
+    
+    .interface-toggle-btn:hover {
+      background: linear-gradient(135deg, #c9184a, #ff4d6d);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5);
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      #widget-wrapper.visible {
         grid-template-columns: 1fr;
+        height: auto;
+      }
+      .sidebar {
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+      }
+      .nav-links {
+        flex-direction: row;
+      }
+      .sidebar-brand {
+        display: none;
+      }
     }
-}
-
-</style>
+  </style>
 </head>
-
 <body>
 
-<!-- Floating hearts -->
+  <div id="loading-screen">
+    <img src="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg" alt="Logo" class="loader-logo">
+    <div class="loader-title">Kitt's Lounge</div>
+    <div class="loader-bar-container">
+      <div id="loader-bar-fill" class="loader-bar-fill"></div>
+    </div>
+    <div id="loader-status" class="loader-status">~ Loading... ~</div>
+    <div id="loading-tip" class="loading-tip">Tip: Cozy and warm... like your bed!</div>
+  </div>
 
-<div class="heart">♥</div>
-<div class="heart">♥</div>
-<div class="heart">♥</div>
-<div class="heart">♥</div>
-<div class="heart">♥</div>
+  <div id="hello-screen">
+    <div id="typed-hello-title" class="hello-title"></div>
+    <button class="enter-btn" onclick="enterSite()">Open Interface</button>
+  </div>
 
+  <div id="lounge-modal" class="modal-overlay" onclick="closeModalOnOutside(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Activity Title</h3>
+        <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="modal-content"></div>
+      <div style="text-align: center;">
+        <a id="modal-invite-link" class="server-invite-link" href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener">[ Join server ]</a>
+      </div>
+    </div>
+  </div>
 
-<!-- Everything -->
+  <div class="main-page-container">
+    
+    <div id="widget-wrapper">
+      
+      <div class="sidebar">
+        <div>
+          <div class="sidebar-brand">
+            <img src="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg" alt="Logo" class="sidebar-logo">
+            <h2 id="brand-title">Kitt's Lounge</h2>
+          </div>
+          <div class="nav-links">
+            <button class="nav-btn active" onclick="switchTab('home-tab', this)"><i class="fa-solid fa-house"></i> Home</button>
+            <button class="nav-btn" onclick="switchTab('rules-tab', this)"><i class="fa-solid fa-book-open"></i> Rules</button>
+            <button class="nav-btn" onclick="switchTab('lounge-tab', this)"><i class="fa-solid fa-mug-hot"></i> Lounge</button>
+          </div>
+        </div>
 
-<div class="layout">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
+          <div style="text-align: center; font-size: 0.7rem; opacity: 0.5; color: #ffb3c1;">
+            Kitt's Lounge v2.7 🐾
+          </div>
+        </div>
+      </div>
 
-    <!-- Main Profile Widget -->
+      <div class="content-area">
 
-    <div class="widget">
-
-        <div class="profile">
-
-            <div class="avatar-container">
-
-                <img
-                    class="avatar"
-                    src="https://media1.tenor.com/m/uISlWBURL7MAAAAd/haimiya.gif"
-                    alt="Kittt Avatar"
-                >
-
-                <div class="avatar-decoration"></div>
-
+        <div id="home-tab" class="tab-pane active">
+          <div class="dash-header">
+            <h3 id="server-name">Kitt's Lounge</h3>
+            <div class="stats-container">
+              <span class="stat-badge" id="online-count">0 online members</span>
             </div>
+          </div>
+
+          <div class="members-wrapper">
+            <div>
+              <div class="section-title title-owners">👑 ᴏᴡɴᴇʀs 👑</div>
+              <ul id="owner-list" class="member-grid"></ul>
+            </div>
+
+            <div class="divider"></div>
 
             <div>
-
-                <div class="username">
-                    Kittt
-                </div>
-
-                <div class="pronouns">
-                    she/her
-                </div>
-
+              <div class="section-title title-admins">🛡️ ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs 🛡️</div>
+              <ul id="admin-list" class="member-grid"></ul>
             </div>
 
+            <div class="divider"></div>
+
+            <div>
+              <div class="section-title title-mods">🌸 ᴍᴏᴅᴇʀᴀᴛᴏʀs 🌸</div>
+              <ul id="mod-list" class="member-grid"></ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="divider"></div>
+
+            <div>
+              <div class="section-title title-members">✨ ᴏɴʟɪɴᴇ ᴍᴇᴍʙᴇʀs ✨</div>
+              <ul id="member-list" class="member-grid"></ul>
+            </div>
+          </div>
         </div>
 
-
-        <!-- About Me -->
-
-        <div class="about">
-
-            <div class="about-title">
-                About Me
-            </div>
-
-            <div class="about-text">
-
-                <p>I love cats!</p>
-
-                <p>I mainly play games, do movie nights, or sleep.</p>
-
-                <p>"As long as you are happy, I am also happy."</p>
-
-            </div>
-
+        <div id="rules-tab" class="tab-pane">
+          <div class="dash-header">
+            <h3>Rules</h3>
+            <span class="stat-badge">Important!</span>
+          </div>
+          <div class="rules-content">
+            <ol>
+              <li>Do not harass anyone on the server. Treat others with respect and politeness.</li>
+              <li>Do not beg for roles, currency, or any other applicable content.</li>
+              <li>Do not coordinate or participate in illegal gambling.</li>
+              <li>No witch hunting, sexism, racism, or hate speech.</li>
+              <li>No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members.</li>
+              <li>No NSFW content or NSFW comments about other content, users, or applicable things.</li>
+              <li>No impersonating other staff members or users under any circumstances.</li>
+              <li>Vulgarities and cuss words are generally allowed, but using them against other users will be counted as hate speech.</li>
+              <li>Do not argue against others on this server. Argue elsewhere which does not annoy other users/servers.</li>
+            </ol>
+            <p style="margin-top: 10px; font-weight: 600; color: #ff4d6d; font-size: 0.85rem;">Follow <u>Discord's Terms of Service</u> at all times. Failure to follow these rules will result in punishment.</p>
+          </div>
         </div>
 
-
-        <!-- Stats -->
-
-        <div class="stats">
-
-            <div class="stat">
-
-                <div class="stat-label">
-                    🎂 Birthday
-                </div>
-
-                <div class="stat-value">
-                    16/06
-                </div>
-
+        <div id="lounge-tab" class="tab-pane">
+          <div class="dash-header">
+            <h3>Lounge Activities</h3>
+            <span class="stat-badge">Community</span>
+          </div>
+          <div class="events-grid">
+            <div class="feature-card" onclick="openModal('qotd')">
+              <h4><i class="fa-solid fa-comments"></i> QOTD</h4>
+              <p>Daily questions, engaging conversations & fun thoughts!</p>
             </div>
-
-
-            <div class="stat">
-
-                <div class="stat-label">
-                    🍜 Fav Food
-                </div>
-
-                <div class="stat-value">
-                    Ramen
-                </div>
-
+            <div class="feature-card" onclick="openModal('events')">
+              <h4><i class="fa-solid fa-trophy"></i> Events</h4>
+              <p>Take part in exciting community minigames, trivia, and special events!</p>
             </div>
-
-
-            <div class="stat">
-
-                <div class="stat-label">
-                    🐱 Fav Animals
-                </div>
-
-                <div class="stat-value">
-                    Cats & Rabbits
-                </div>
-
+            <div class="feature-card" onclick="openModal('movies')">
+              <h4><i class="fa-solid fa-film"></i> Movie Nights</h4>
+              <p>Grab popcorn or snacks & join us!</p>
             </div>
-
-
-            <div class="stat">
-
-                <div class="stat-label">
-                    🕐 Current Time
-                </div>
-
-                <div class="stat-value" id="currentTime">
-                    Loading...
-                </div>
-
+            <div class="feature-card" onclick="openModal('art')">
+              <h4><i class="fa-solid fa-palette"></i> Art Gallery</h4>
+              <p>Showcase your artworks with the lounge community!</p>
             </div>
-
+          </div>
         </div>
 
-
-        <!-- Music -->
-
-        <div class="music-player">
-
-            <img
-                class="album"
-                src="https://i.scdn.co/image/ab67616d0000b273aeb64471596b00f380975ceb"
-                alt="Bad Romance Album Art"
-            >
-
-            <div class="song-info">
-
-                <div class="song-name">
-                    Bad Romance
-                </div>
-
-                <div class="artist">
-                    Lady Gaga
-                </div>
-
-                <div class="progress">
-                    <div class="progress-fill"></div>
-                </div>
-
-            </div>
-
-            <button
-                class="play-button"
-                id="playButton"
-            >
-                ▶
-            </button>
-
-        </div>
-
-
-        <!-- Links -->
-
-        <div class="links">
-
-
-            <a
-                class="link-button"
-                href="https://discord.gg/rdcdZ56S4M"
-                target="_blank"
-            >
-                🏠 My Server
-            </a>
-
-        </div>
-
+      </div>
     </div>
 
-
-    <!-- Side Banner -->
-
-    <div class="banner-frame">
-
-        <img
-            class="banner"
-            src="https://i.ibb.co/SXm9dhtt/13e349bebec8c99c845417a4cb0fcf9c.jpg"
-            alt="Kittt Banner"
-        >
-
+    <div class="external-footer-bar">
+      <button id="toggle-interface-btn-tab" class="interface-toggle-btn" onclick="toggleInterface()">Close</button>
+      <div id="main-tip" class="dynamic-tip-container">Tip: Cozy and warm... like your bed!</div>
     </div>
 
-</div>
+  </div>
 
+  <script>
+    const OWNER_IDS = ["1555964902731161711", "1540253480432959539"];
+    const ADMIN_ROLE_IDS = ["1526901549396267089"];
+    const MOD_ROLE_IDS = ["1528305985519751178"];
 
-<script>
+    const tipsList = [
+      "Be sure to share this to your friends!",
+      "This server is very kewl!",
+      "Did you know? Sharky is scared of spiders!",
+      "Cozy and warm... like your bed!",
+      "Please read the rules!",
+      "Did you know? This took weeks to make...",
+      "Did you know? There are <total members> members in this server??",
+      "We hope you enjoyed staying here!",
+      "There is a suggestion channel in our discord server...",
+      "Need a helping hand? Join our discord!",
+      "Did you know? The Owner overworked to the point she drank 8 caffeinated drinks!",
+      "Most of the members here are from different countries!",
+      "We need more people like you!",
+      "Meoowwww~",
+      "Puurrrr~",
+      "Lance is a nerd...",
+      "Turtle is very clingy and loves women!",
+      "This server is still under-development! Sorry!",
+      "Kelp is the longest inactive member in the server!",
+      "Kairi is the Owner's Bestie!",
+      "Trusted Friends can own a room!",
+      "You can obtain different roles!",
+      "There are rare roles you can obtain... Like the Special Role!",
+      "We are still developing this webpage, and the server!",
+      "Your help is greatly appreciated",
+      "Made with love and warmth",
+      "Sharky has anger issues",
+      "DemonGod is a money-spender",
+      "Kitt loves cats, hence her name",
+      "Did you know? The Owner owns 7 cats?",
+      "The Bots are self-coded! Except Miyu..."
+    ];
 
-/* Music button */
+    const loungeData = {
+      qotd: {
+        title: "Question of the day",
+        code: "8waS8YxVu9",
+        content: "Join our daily question discussions! Share your honest thoughts, chat casually with other lounge members, and read fun answers every single day.\n\n• Hosted by The Inquirer"
+      },
+      events: {
+        title: "Events",
+        code: "8aTFtqX6Rx",
+        content: "Take part in exciting community minigames, trivia, and special events hosted by the Showrunner! Win exclusive server roles and prizes."
+      },
+      movies: {
+        title: "Movie Nights",
+        code: "MWD8EDzkzh",
+        content: "Grab your popcorn and cozy blankets! We host alot of content, such as Anime, Action Movies, and more!\n\n• Hosted by the MV-Streamer!"
+      },
+      art: {
+        title: "Art Gallery",
+        code: "uu2aSDsMNB",
+        content: "A dedicated creative space to share your drawings and artwork with fellow lounge members.\n\n• Artist Tiers: Verified Artists & TBV (To be Verified) Artists.\n• TBV Verification: TBV artists can send at least 3 drawings (IRL or digital) to any administrators or owner(s) to be verified.\n• Policy: AI images or any content inhumane is not allowed and will not be verified until humane skills are shown."
+      }
+    };
 
-const playButton =
-    document.getElementById("playButton");
+    let totalMembersCache = "--";
+    let isInterfaceOpen = true;
 
-let playing = false;
-
-playButton.addEventListener("click", () => {
-
-    playing = !playing;
-
-    if (playing) {
-        playButton.textContent = "❚❚";
-    } else {
-        playButton.textContent = "▶";
+    function getRandomTip() {
+      const randomTip = tipsList[Math.floor(Math.random() * tipsList.length)];
+      return randomTip.replace("<total members>", totalMembersCache);
     }
 
-});
+    function startTipRotation() {
+      const tipContainer = document.getElementById('main-tip');
+      if (!tipContainer) return;
+      
+      setInterval(() => {
+        const newTip = `Tip: ${getRandomTip()}`;
+        tipContainer.style.opacity = 0;
+        setTimeout(() => {
+          tipContainer.innerText = newTip;
+          tipContainer.style.opacity = 0.85;
+        }, 250);
+      }, Math.floor(Math.random() * 2000) + 3000);
+    }
 
+    function runTypewriter() {
+      const text = "Hello!<br><br>Welcome to Kitt's Lounge &lt;3";
+      const el = document.getElementById('typed-hello-title');
+      if (!el) return;
+      el.innerHTML = "";
+      let i = 0;
 
-/* Live Singapore time */
+      const timer = setInterval(() => {
+        if (text.charAt(i) === '<') {
+          let tagEnd = text.indexOf('>', i);
+          if (tagEnd !== -1) {
+            el.innerHTML = text.substring(0, tagEnd + 1);
+            i = tagEnd + 1;
+          }
+        } else if (text.charAt(i) === '&') {
+          let entityEnd = text.indexOf(';', i);
+          if (entityEnd !== -1) {
+            el.innerHTML = text.substring(0, entityEnd + 1);
+            i = entityEnd + 1;
+          }
+        } else {
+          el.innerHTML = text.substring(0, i + 1);
+          i++;
+        }
 
-function updateTime() {
+        if (i >= text.length) {
+          clearInterval(timer);
+        }
+      }, 50);
+    }
 
-    const now = new Date();
+    function toggleInterface() {
+      const wrapper = document.getElementById('widget-wrapper');
+      const btnTab = document.getElementById('toggle-interface-btn-tab');
 
-    const singaporeTime =
-        now.toLocaleTimeString("en-SG", {
-            timeZone: "Asia/Singapore",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: false
+      isInterfaceOpen = !isInterfaceOpen;
+      if (isInterfaceOpen) {
+        wrapper.classList.add('visible');
+        if (btnTab) btnTab.innerText = "Close";
+      } else {
+        wrapper.classList.remove('visible');
+        if (btnTab) btnTab.innerText = "Open";
+      }
+    }
+
+    function openModal(type) {
+      const modal = document.getElementById('lounge-modal');
+      const titleEl = document.getElementById('modal-title');
+      const contentEl = document.getElementById('modal-content');
+      const inviteEl = document.getElementById('modal-invite-link');
+      
+      if (loungeData[type]) {
+        titleEl.innerText = loungeData[type].title;
+        contentEl.innerText = loungeData[type].content;
+        inviteEl.href = `https://discord.gg/${loungeData[type].code}`;
+        modal.classList.add('active');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('lounge-modal').classList.remove('active');
+    }
+
+    function closeModalOnOutside(event) {
+      if (event.target.id === 'lounge-modal') {
+        closeModal();
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    function switchTab(tabId, btnElement) {
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      btnElement.classList.add('active');
+    }
+
+const API_URL =
+    "https://serverwidget.onrender.com/api/guild-data";
+
+async function loadGuildData() {
+    try {
+        const response = await fetch(API_URL, {
+            cache: "no-store"
         });
 
-    document.getElementById("currentTime").textContent =
-        singaporeTime;
+        if (!response.ok) {
+            throw new Error(`API returned ${response.status}`);
+        }
 
+        const data = await response.json();
+
+        if (!Array.isArray(data.members)) {
+            throw new Error("Invalid member data");
+        }
+
+        renderMembers(data);
+        return true;
+    } catch (error) {
+        console.error("Failed to load guild data:", error);
+        return false;
+    }
 }
 
-updateTime();
+async function initLoader() {
+    const fill = document.getElementById("loader-bar-fill");
+    const status = document.getElementById("loader-status");
+    const tipEl = document.getElementById("loading-tip");
 
-setInterval(updateTime, 1000);
+    tipEl.innerText = `Tip: ${getRandomTip()}`;
+    fill.style.width = "30%";
+    status.innerText = "~ Connecting to Kitt's Lounge... ~";
 
+    await loadGuildData();
 
-/* Mouse parallax */
+    fill.style.width = "100%";
+    status.innerText = "~ Ready! ~";
 
-const widget =
-    document.querySelector(".widget");
+    setTimeout(() => {
+        document.getElementById("loading-screen").classList.add("hidden");
+        document.getElementById("hello-screen").classList.add("active");
+        runTypewriter();
+    }, 500);
 
-document.addEventListener("mousemove", (event) => {
+    setInterval(loadGuildData, 5000);
+}
 
-    const x =
-        event.clientX / window.innerWidth - 0.5;
+    function enterSite() {
+      document.getElementById('hello-screen').classList.remove('active');
+      document.getElementById('widget-wrapper').classList.add('visible');
+      isInterfaceOpen = true;
+      const btnTab = document.getElementById('toggle-interface-btn-tab');
+      if (btnTab) btnTab.innerText = "Close";
+    }
 
-    const y =
-        event.clientY / window.innerHeight - 0.5;
+    function renderMembers(data) {
+      const ownerList = document.getElementById("owner-list");
+      const adminList = document.getElementById("admin-list");
+      const modList = document.getElementById("mod-list");
+      const memberList = document.getElementById("member-list");
+      const onlineBadge = document.getElementById("online-count");
 
-    const rotateX = y * -2;
-    const rotateY = x * 2;
+      if (!ownerList || !adminList || !modList || !memberList) return;
 
-    widget.style.transform =
-        `translateY(-2px)
-         rotateX(${rotateX}deg)
-         rotateY(${rotateY}deg)`;
+      ownerList.innerHTML = "";
+      adminList.innerHTML = "";
+      modList.innerHTML = "";
+      memberList.innerHTML = "";
 
-});
+      const members = Array.isArray(data.members) ? data.members : [];
+      const onlineMembers = members.filter(member =>
+        member.status && member.status !== "offline" && !member.bot
+      );
 
-document.addEventListener("mouseleave", () => {
+      function makeMemberCard(member) {
+        const li = document.createElement("li");
+        li.className = "member-item";
 
-    widget.style.transform =
-        "translateY(0) rotateX(0) rotateY(0)";
+        const avatar = document.createElement("img");
+        avatar.src = member.avatar_url || "";
+        avatar.alt = member.display_name || member.username || "Member";
+        avatar.loading = "lazy";
 
-});
+        const name = document.createElement("span");
+        name.textContent = member.display_name || member.username || "Unknown member";
 
-</script>
+        li.appendChild(avatar);
+        li.appendChild(name);
+        return li;
+      }
 
+      members.filter(member => !member.bot).forEach(member => {
+        const roles = Array.isArray(member.roles) ? member.roles.map(String) : [];
+        const isOwner = OWNER_IDS.some(id => roles.includes(String(id)) || String(member.id) === String(id));
+        const isAdmin = ADMIN_ROLE_IDS.some(id => roles.includes(String(id)));
+        const isMod = MOD_ROLE_IDS.some(id => roles.includes(String(id)));
+
+        // Keep staff visible even when offline.
+        if (isOwner) {
+          ownerList.appendChild(makeMemberCard(member));
+        } else if (isAdmin) {
+          adminList.appendChild(makeMemberCard(member));
+        } else if (isMod) {
+          modList.appendChild(makeMemberCard(member));
+        }
+      });
+
+      // This section contains only online non-staff members.
+      onlineMembers.forEach(member => {
+        const roles = Array.isArray(member.roles) ? member.roles.map(String) : [];
+        const isStaff =
+          OWNER_IDS.some(id => roles.includes(String(id)) || String(member.id) === String(id)) ||
+          ADMIN_ROLE_IDS.some(id => roles.includes(String(id))) ||
+          MOD_ROLE_IDS.some(id => roles.includes(String(id)));
+
+        if (!isStaff) memberList.appendChild(makeMemberCard(member));
+      });
+
+      onlineBadge.textContent = `${Number.isFinite(Number(data.online_members)) ? data.online_members : onlineMembers.length} online members`;
+      totalMembersCache = data.total_members ?? members.length;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const tipText = getRandomTip();
+      const mainTipEl = document.getElementById('main-tip');
+      if (mainTipEl) mainTipEl.innerText = `Tip: ${tipText}`;
+      initLoader();
+      startTipRotation();
+    });
+  </script>
 </body>
 </html>
