@@ -393,6 +393,22 @@
       border: 1px solid #ff4d6d;
     }
 
+    .member-status {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      min-width: 9px;
+      border-radius: 50%;
+      margin-left: auto;
+      background: #747f8d;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+    }
+
+    .member-status.online { background: #3ba55d; box-shadow: 0 0 6px rgba(59, 165, 93, 0.65); }
+    .member-status.idle { background: #faa61a; box-shadow: 0 0 6px rgba(250, 166, 26, 0.5); }
+    .member-status.dnd { background: #ed4245; box-shadow: 0 0 6px rgba(237, 66, 69, 0.5); }
+
     .divider {
       height: 2px;
       background: linear-gradient(90deg, transparent, #590d22, transparent);
@@ -694,25 +710,23 @@
 
           <div class="members-wrapper">
             <div>
-              <div class="section-title title-owners">👑 ᴏᴡɴᴇʀs 👑</div>
+              <div class="section-title title-owners">🌹 ᴏᴡɴᴇʀs 🌹</div>
               <ul id="owner-list" class="member-grid"></ul>
             </div>
 
             <div class="divider"></div>
 
             <div>
-              <div class="section-title title-admins">🛡️ ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs 🛡️</div>
+              <div class="section-title title-admins">🌸 ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs 🌸</div>
               <ul id="admin-list" class="member-grid"></ul>
             </div>
 
             <div class="divider"></div>
 
             <div>
-              <div class="section-title title-mods">🌸 ᴍᴏᴅᴇʀᴀᴛᴏʀs 🌸</div>
+              <div class="section-title title-mods">💮 ᴍᴏᴅᴇʀᴀᴛᴏʀs 💮</div>
               <ul id="mod-list" class="member-grid"></ul>
             </div>
-
-            <div class="divider"></div>
 
             <div class="divider"></div>
 
@@ -1035,8 +1049,16 @@ async function initLoader() {
         const name = document.createElement("span");
         name.textContent = member.display_name || member.username || "Unknown member";
 
+        const status = document.createElement("span");
+        const statusValue = String(member.status || "offline").toLowerCase();
+        const statusClass = ["online", "idle", "dnd"].includes(statusValue) ? statusValue : "offline";
+        status.className = `member-status ${statusClass}`;
+        status.title = statusClass === "dnd" ? "Do Not Disturb" : statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
+        status.setAttribute("aria-label", status.title);
+
         li.appendChild(avatar);
         li.appendChild(name);
+        li.appendChild(status);
         return li;
       }
 
