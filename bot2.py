@@ -8,7 +8,7 @@ from flask_cors import CORS
 load_dotenv('/etc/secrets/.env')
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 GUILD_ID = os.getenv("GUILD_ID")
@@ -29,17 +29,15 @@ guild_data = {
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
-    print(f"Connected to guilds: {[g.name for g in client.guilds]}")
-    
-    # Automatically grab the first available server the bot is in
     guild = None
-    if client.guilds:
+    if GUILD_ID:
+        guild = client.get_guild(int(GUILD_ID))
+    if not guild and client.guilds:
         guild = client.guilds[0]
 
     if guild:
         guild_data["total_members"] = guild.member_count
         members_list = []
-        
         async for member in guild.fetch_members(limit=None):
             members_list.append({
                 "username": member.name,
@@ -49,12 +47,11 @@ async def on_ready():
                 "bot": member.bot,
                 "roles": [str(role.id) for role in member.roles]
             })
-        
         guild_data["members"] = members_list
         print(f"Successfully loaded {len(members_list)} members for {guild.name}")
     else:
-        print("ERROR: Bot is not in any servers!")
-        
+        print("ERROR: Bot is not in any servers or GUILD_ID is invalid!")
+
 @app.route("/")
 def home():
     return "Kitt's Lounge is active!"
