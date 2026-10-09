@@ -2,6 +2,8 @@ import os
 import threading
 import discord
 from flask import Flask, render_template_string
+from dotenv import load_dotenv
+load_dotenv('/etc/secrets/.env')
 
 app = Flask(__name__)
 
