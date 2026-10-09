@@ -15,51 +15,35 @@ intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 intents.guilds = True
+intents.presences = True  # Required to read online/offline member statuses
 
 client = discord.Client(intents=intents)
 
 guild_data = {
-    "member_count": 0,
-    "owners": [],
-    "admins": [],
-    "mods": [],
-    "bots": [],
-    "online_members": []
+    "total_members": 0,
+    "members": []
 }
 
 @client.event
 async def on_ready():
+    print(f"Logged in as {client.user}")
     if GUILD_ID:
         guild = client.get_guild(int(GUILD_ID))
         if guild:
-            guild_data["member_count"] = guild.member_count
-            
-            owners = []
-            admins = []
-            mods = []
-            bots = []
-            online = []
+            guild_data["total_members"] = guild.member_count
+            members_list = []
             
             for member in guild.members:
-                if member.bot:
-                    bots.append(member.name)
-                elif member.status != discord.Status.offline:
-                    online.append(member.name)
-                
-                for role in member.roles:
-                    role_name = role.name.lower()
-                    if "owner" in role_name:
-                        owners.append(member.name)
-                    elif "admin" in role_name:
-                        admins.append(member.name)
-                    elif "mod" in role_name:
-                        mods.append(member.name)
+                members_list.append({
+                    "username": member.name,
+                    "display_name": member.display_name,
+                    "avatar_url": str(member.display_avatar.url),
+                    "status": str(member.status),
+                    "bot": member.bot,
+                    "roles": [str(role.id) for role in member.roles]
+                })
             
-            guild_data["owners"] = list(set(owners))
-            guild_data["admins"] = list(set(admins))
-            guild_data["mods"] = list(set(mods))
-            guild_data["bots"] = list(set(bots))
-            guild_data["online_members"] = list(set(online))
+            guild_data["members"] = members_list
 
 @app.route("/")
 def home():
