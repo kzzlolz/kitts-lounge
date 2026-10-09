@@ -40,6 +40,7 @@ async def on_ready():
         members_list = []
         async for member in guild.fetch_members(limit=None):
             members_list.append({
+                "id": str(member.id),
                 "username": member.name,
                 "display_name": member.display_name,
                 "avatar_url": str(member.display_avatar.url),
