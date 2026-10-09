@@ -29,6 +29,8 @@ guild_data = {
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
+    
+    # Grab the server the bot is connected to
     guild = None
     if GUILD_ID:
         guild = client.get_guild(int(GUILD_ID))
@@ -38,6 +40,7 @@ async def on_ready():
     if guild:
         guild_data["total_members"] = guild.member_count
         members_list = []
+        
         async for member in guild.fetch_members(limit=None):
             members_list.append({
                 "id": str(member.id),
@@ -48,10 +51,11 @@ async def on_ready():
                 "bot": member.bot,
                 "roles": [str(role.id) for role in member.roles]
             })
+            
         guild_data["members"] = members_list
         print(f"Successfully loaded {len(members_list)} members for {guild.name}")
     else:
-        print("ERROR: Bot is not in any servers or GUILD_ID is invalid!")
+        print("ERROR: Bot could not find a valid guild!")
 
 @app.route("/")
 def home():
