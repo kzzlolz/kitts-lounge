@@ -15,7 +15,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 intents.guilds = True
-intents.presences = True  # Required to read online/offline member statuses
+intents.presences = True
 
 client = discord.Client(intents=intents)
 
@@ -33,7 +33,8 @@ async def on_ready():
             guild_data["total_members"] = guild.member_count
             members_list = []
             
-            for member in guild.members:
+            # Explicitly fetch all members from the API to guarantee they are loaded
+            async for member in guild.fetch_members(limit=None):
                 members_list.append({
                     "username": member.name,
                     "display_name": member.display_name,
@@ -44,6 +45,7 @@ async def on_ready():
                 })
             
             guild_data["members"] = members_list
+            print(f"Successfully loaded {len(members_list)} members for {guild.name}")
 
 @app.route("/")
 def home():
