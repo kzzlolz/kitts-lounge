@@ -561,6 +561,51 @@
       gap: 12px;
     }
 
+    .music-player {
+    width: min(100% - 32px, 420px);
+    margin: 28px auto;
+    padding: 18px;
+    box-sizing: border-box;
+    background: linear-gradient(145deg, #211519, #100d10);
+    border: 1px solid rgba(255, 120, 150, 0.3);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    color: #fff0f4;
+    font-family: inherit;
+}
+
+  .music-heading {
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #ffb4c8;
+}
+
+  .music-content {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+  .music-art iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+}
+
+  .music-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    color: #d9a4b4;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
     .server-invite-link {
       display: inline-block;
       width: auto;
@@ -690,6 +735,27 @@
             <button class="nav-btn" onclick="switchTab('lounge-tab', this)"><i class="fa-solid fa-mug-hot"></i> Lounge</button>
           </div>
         </div>
+
+        <section class="music-player">
+    <div class="music-heading">♫ KITT'S LOUNGE RADIO</div>
+
+    <div class="music-content">
+        <div class="music-art">
+            <iframe
+                src="YOUR_SPOTIFY_EMBED_URL"
+                width="100%"
+                height="352"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="music-footer">
+        <span>♫</span> Listen as you browse!
+    </div>
+</section>
 
         <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
           <div style="text-align: center; font-size: 0.7rem; opacity: 0.5; color: #ffb3c1;">
