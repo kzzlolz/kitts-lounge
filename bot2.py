@@ -27,8 +27,11 @@ guild_data = {
 }
 
 @client.event
+@client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
+    print(f"Bot is currently in these servers: {[g.name for g in client.guilds]}")
+    
     if GUILD_ID:
         guild = client.get_guild(int(GUILD_ID))
         if guild:
@@ -47,6 +50,10 @@ async def on_ready():
             
             guild_data["members"] = members_list
             print(f"Successfully loaded {len(members_list)} members for {guild.name}")
+        else:
+            print(f"ERROR: Could not find guild with ID {GUILD_ID}. Check if your GUILD_ID is correct and the bot has been invited to that server!")
+    else:
+        print("ERROR: GUILD_ID environment variable is missing or empty!")
 
 @app.route("/")
 def home():
