@@ -3,10 +3,12 @@ import threading
 from dotenv import load_dotenv
 import discord
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 load_dotenv('/etc/secrets/.env')
 
 app = Flask(__name__)
+CORS(app) 
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 GUILD_ID = os.getenv("GUILD_ID")
