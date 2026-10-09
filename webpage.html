@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -731,7 +731,7 @@
             <div class="divider"></div>
 
             <div>
-              <div class="section-title title-members">✨ ᴏɴʟɪɴᴇ ᴍᴇᴍʙᴇʀs ✨</div>
+              <div class="section-title title-members">✨ ᴍᴇᴍʙᴇʀs ✨</div>
               <ul id="member-list" class="member-grid"></ul>
             </div>
           </div>
@@ -1078,16 +1078,23 @@ async function initLoader() {
         }
       });
 
-      // This section contains only online non-staff members.
-      onlineMembers.forEach(member => {
-        const roles = Array.isArray(member.roles) ? member.roles.map(String) : [];
-        const isStaff =
-          OWNER_IDS.some(id => roles.includes(String(id)) || String(member.id) === String(id)) ||
-          ADMIN_ROLE_IDS.some(id => roles.includes(String(id))) ||
-          MOD_ROLE_IDS.some(id => roles.includes(String(id)));
+     members.filter(member => !member.bot).forEach(member => {
+    const roles = Array.isArray(member.roles)
+        ? member.roles.map(String)
+        : [];
 
-        if (!isStaff) memberList.appendChild(makeMemberCard(member));
-      });
+    const isStaff =
+        OWNER_IDS.some(id =>
+            roles.includes(String(id)) ||
+            String(member.id) === String(id)
+        ) ||
+        ADMIN_ROLE_IDS.some(id => roles.includes(String(id))) ||
+        MOD_ROLE_IDS.some(id => roles.includes(String(id)));
+
+    if (!isStaff) {
+        memberList.appendChild(makeMemberCard(member));
+    }
+});
 
       onlineBadge.textContent = `${Number.isFinite(Number(data.online_members)) ? data.online_members : onlineMembers.length} online members`;
       totalMembersCache = data.total_members ?? members.length;
