@@ -27,34 +27,34 @@ guild_data = {
 }
 
 @client.event
-@client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
-    print(f"Bot is currently in these servers: {[g.name for g in client.guilds]}")
+    print(f"Connected to guilds: {[g.name for g in client.guilds]}")
     
-    if GUILD_ID:
-        guild = client.get_guild(int(GUILD_ID))
-        if guild:
-            guild_data["total_members"] = guild.member_count
-            members_list = []
-            
-            async for member in guild.fetch_members(limit=None):
-                members_list.append({
-                    "username": member.name,
-                    "display_name": member.display_name,
-                    "avatar_url": str(member.display_avatar.url),
-                    "status": str(member.status),
-                    "bot": member.bot,
-                    "roles": [str(role.id) for role in member.roles]
-                })
-            
-            guild_data["members"] = members_list
-            print(f"Successfully loaded {len(members_list)} members for {guild.name}")
-        else:
-            print(f"ERROR: Could not find guild with ID {GUILD_ID}. Check if your GUILD_ID is correct and the bot has been invited to that server!")
-    else:
-        print("ERROR: GUILD_ID environment variable is missing or empty!")
+    # Automatically grab the first available server the bot is in
+    guild = None
+    if client.guilds:
+        guild = client.guilds[0]
 
+    if guild:
+        guild_data["total_members"] = guild.member_count
+        members_list = []
+        
+        async for member in guild.fetch_members(limit=None):
+            members_list.append({
+                "username": member.name,
+                "display_name": member.display_name,
+                "avatar_url": str(member.display_avatar.url),
+                "status": str(member.status),
+                "bot": member.bot,
+                "roles": [str(role.id) for role in member.roles]
+            })
+        
+        guild_data["members"] = members_list
+        print(f"Successfully loaded {len(members_list)} members for {guild.name}")
+    else:
+        print("ERROR: Bot is not in any servers!")
+        
 @app.route("/")
 def home():
     return "Kitt's Lounge is active!"
