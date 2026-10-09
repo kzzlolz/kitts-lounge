@@ -33,7 +33,6 @@ async def on_ready():
             guild_data["total_members"] = guild.member_count
             members_list = []
             
-            # Explicitly fetch all members from the API to guarantee they are loaded
             async for member in guild.fetch_members(limit=None):
                 members_list.append({
                     "username": member.name,
