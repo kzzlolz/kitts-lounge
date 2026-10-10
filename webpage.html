@@ -561,50 +561,133 @@
       gap: 12px;
     }
 
-    .music-player {
-    width: min(100% - 32px, 420px);
-    margin: 28px auto;
-    padding: 18px;
-    box-sizing: border-box;
-    background: linear-gradient(145deg, #211519, #100d10);
-    border: 1px solid rgba(255, 120, 150, 0.3);
-    border-radius: 18px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    color: #fff0f4;
-    font-family: inherit;
+   
+#music-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  border: 2px solid #ff8fa3;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9184a, #800f2f);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 10001;
+  box-shadow: 0 5px 22px rgba(201, 24, 74, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-  .music-heading {
-    font-size: 13px;
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: #ffb4c8;
+#music-toggle:hover {
+  transform: scale(1.09);
+  box-shadow: 0 0 25px rgba(255, 77, 109, 0.65);
 }
 
-  .music-content {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 12px;
+#music-toggle:focus-visible,
+#music-close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
 }
 
-  .music-art iframe {
-    display: block;
-    width: 100%;
-    border: 0;
-    border-radius: 12px;
+#music-popup {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 94px;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  padding: 12px;
+  background: linear-gradient(145deg, #1a0205, #26040a);
+  border: 2px solid #800f2f;
+  border-radius: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+  z-index: 10000;
+  color: #ffdce5;
 }
 
-  .music-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 14px;
-    color: #d9a4b4;
-    font-size: 10px;
-    letter-spacing: 1.5px;
+#music-popup.open {
+  display: block;
+  animation: musicPopupIn 0.22s ease-out;
 }
+
+.music-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 2px 12px;
+}
+
+.music-popup-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ff8fa3;
+}
+
+.music-popup-label > i {
+  font-size: 22px;
+}
+
+.music-popup-label div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.music-popup-label strong {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.music-popup-label small {
+  color: #ffb3c1;
+  font-size: 11px;
+}
+
+#music-close {
+  background: transparent;
+  border: none;
+  color: #ffdce5;
+  font-size: 21px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+#music-close:hover {
+  color: #ff4d6d;
+}
+
+#music-popup iframe {
+  display: block;
+  width: 100%;
+  max-height: 45vh;
+}
+
+@keyframes musicPopupIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  #music-toggle {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  #music-popup {
+    right: 16px;
+    bottom: 86px;
+  }
+}
+
 
     .server-invite-link {
       display: inline-block;
@@ -719,6 +802,37 @@
     </div>
   </div>
 
+  
+<button id="music-toggle" aria-label="Open music player" aria-expanded="false">
+  <i class="fa-solid fa-music"></i>
+</button>
+
+<div id="music-popup" role="dialog" aria-label="Kitt's Lounge Radio" aria-hidden="true">
+  <div class="music-popup-header">
+    <div class="music-popup-label">
+      <i class="fa-solid fa-headphones"></i>
+      <div>
+        <strong>KITT'S LOUNGE RADIO</strong>
+        <small>Listen as you browse! ♡</small>
+      </div>
+    </div>
+    <button id="music-close" aria-label="Close music player">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <iframe
+    src="https://open.spotify.com/embed/playlist/62Os3fO0Dk12QcdJg8r7ny?theme=0"
+    title="Kitt's playlist"
+    width="100%"
+    height="352"
+    style="border:0; border-radius:12px;"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
+</div>
+
+
   <div class="main-page-container">
     
     <div id="widget-wrapper">
@@ -736,26 +850,6 @@
           </div>
         </div>
 
-        <section class="music-player">
-    <div class="music-heading">♫ KITT'S LOUNGE RADIO</div>
-
-    <div class="music-content">
-        <div class="music-art">
-            <iframe
-                src="https://open.spotify.com/embed/playlist/62Os3fO0Dk12QcdJg8r7ny"
-                width="100%"
-                height="352"
-                frameborder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy">
-            </iframe>
-        </div>
-    </div>
-
-    <div class="music-footer">
-        <span>♫</span> Listen as you browse!
-    </div>
-</section>
 
         <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
           <div style="text-align: center; font-size: 0.7rem; opacity: 0.5; color: #ffb3c1;">
@@ -1165,6 +1259,36 @@ async function initLoader() {
       onlineBadge.textContent = `${Number.isFinite(Number(data.online_members)) ? data.online_members : onlineMembers.length} online members`;
       totalMembersCache = data.total_members ?? members.length;
     }
+
+    
+const musicToggle = document.getElementById("music-toggle");
+const musicPopup = document.getElementById("music-popup");
+const musicClose = document.getElementById("music-close");
+
+function setMusicPopup(open) {
+  musicPopup.classList.toggle("open", open);
+  musicToggle.setAttribute("aria-expanded", String(open));
+  musicPopup.setAttribute("aria-hidden", String(!open));
+  musicToggle.setAttribute(
+    "aria-label",
+    open ? "Close music player" : "Open music player"
+  );
+}
+
+musicToggle.addEventListener("click", () => {
+  setMusicPopup(!musicPopup.classList.contains("open"));
+});
+
+musicClose.addEventListener("click", () => {
+  setMusicPopup(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setMusicPopup(false);
+  }
+});
+
 
     window.addEventListener('DOMContentLoaded', () => {
       const tipText = getRandomTip();
