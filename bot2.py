@@ -44,23 +44,22 @@ def refresh_member_data(guild):
         if not member.bot and member.status != discord.Status.offline
     )
 
-    for member in members:
-        if member.bot:
-            continue
+ 
+for member in members:
+    member_list.append({
+        "id": str(member.id),
+        "username": member.name,
+        "display_name": member.display_name,
+        "avatar_url": str(member.display_avatar.url),
+        "status": str(member.status),
+        "bot": member.bot,
+        "roles": [
+            str(role.id)
+            for role in member.roles
+            if role != guild.default_role
+        ]
+    })
 
-        member_list.append({
-            "id": str(member.id),
-            "username": member.name,
-            "display_name": member.display_name,
-            "avatar_url": str(member.display_avatar.url),
-            "status": str(member.status),
-            "bot": False,
-            "roles": [
-                str(role.id)
-                for role in member.roles
-                if role != guild.default_role
-            ]
-        })
 
     with data_lock:
         guild_data["total_members"] = guild.member_count or len(members)
