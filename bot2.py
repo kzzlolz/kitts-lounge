@@ -35,6 +35,7 @@ def get_guild():
     return client.guilds[0] if client.guilds else None
 
 
+
 def refresh_member_data(guild):
     members = list(guild.members)
     member_list = []
@@ -44,22 +45,20 @@ def refresh_member_data(guild):
         if not member.bot and member.status != discord.Status.offline
     )
 
- 
-for member in members:
-    member_list.append({
-        "id": str(member.id),
-        "username": member.name,
-        "display_name": member.display_name,
-        "avatar_url": str(member.display_avatar.url),
-        "status": str(member.status),
-        "bot": member.bot,
-        "roles": [
-            str(role.id)
-            for role in member.roles
-            if role != guild.default_role
-        ]
-    })
-
+    for member in members:
+        member_list.append({
+            "id": str(member.id),
+            "username": member.name,
+            "display_name": member.display_name,
+            "avatar_url": str(member.display_avatar.url),
+            "status": str(member.status),
+            "bot": member.bot,
+            "roles": [
+                str(role.id)
+                for role in member.roles
+                if role != guild.default_role
+            ]
+        })
 
     with data_lock:
         guild_data["total_members"] = guild.member_count or len(members)
@@ -78,7 +77,7 @@ async def update_guild_data():
         await guild.chunk(cache=True)
         refresh_member_data(guild)
         print(
-            f"Loaded {len(guild_data['members'])} human members "
+            f"Loaded {len(guild_data['members'])} total members "
             f"from {guild.name}"
         )
     except Exception as error:
