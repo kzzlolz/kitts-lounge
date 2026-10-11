@@ -1,22 +1,13 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kitt's Lounge</title>
-  
+  <title>Kitt's Lounge ♱</title>
   <link rel="icon" href="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="🌸 Kitt's Lounge 🐾">
-  <meta property="og:description" content="Stupidly cozy ^^">
-  <meta property="og:image" content="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg">
-  <meta name="theme-color" content="#1a0205">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Press+Start+2P&family=Inter:wght@400;500;600&display=swap');
 
     * {
       box-sizing: border-box;
@@ -24,480 +15,561 @@
       padding: 0;
     }
 
-    body {
-      background: url("https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ffab1a88641f559fbefdcbe5f296b5bb.gif") no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Fredoka', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      overflow: auto;
-      color: #ffdce5;
+    :root {
+      --bg-dark: #080507;
+      --panel-bg: rgba(18, 10, 15, .92);
+      --blood: #4a1222;
+      --crimson: #8a2542;
+      --bright-red: #ff4d6d;
+      --rose: #d4a5b2;
+      --gold: #c2ab88;
+      --paper: #f0e6eb;
+      --border: rgba(196, 166, 176, .25);
     }
 
-    #loading-screen {
+    body {
+      background: var(--bg-dark);
+      color: var(--paper);
+      font-family: Inter, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Loading */
+    #scene-loading {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(135deg, #120104, #260308);
+      inset: 0;
+      background: linear-gradient(135deg, #0e0508, #1a030a);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-      padding: 20px;
-    }
-
-    #loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      transition: opacity .8s ease;
     }
 
     .loader-logo {
       width: 90px;
       height: 90px;
       object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #ff4d6d;
-      box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
-      margin-bottom: 15px;
+      border: 2px solid var(--gold);
+      box-shadow: 4px 4px 0 var(--blood);
+      margin-bottom: 20px;
       animation: pulseLogo 1.5s infinite alternate;
     }
 
     @keyframes pulseLogo {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
+      to {
+        transform: scale(1.06);
+      }
     }
 
     .loader-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
     }
 
-    .loader-bar-container {
-      width: 260px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid #ff4d6d;
-      border-radius: 10px;
-      overflow: hidden;
+    .loader-bar-box {
+      width: min(280px, 80vw);
+      height: 10px;
+      border: 1px solid var(--gold);
+      background: rgba(0, 0, 0, .5);
       margin-bottom: 15px;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
     }
 
     .loader-bar-fill {
-      width: 0%;
+      width: 0;
       height: 100%;
-      background: linear-gradient(90deg, #c9184a, #ff4d6d);
-      border-radius: 6px;
-      transition: width 0.2s ease;
+      background: repeating-linear-gradient(90deg, var(--crimson) 0 10px, var(--bright-red) 10px 20px);
+      transition: width .3s ease;
+    }
+
+    .loader-status, .loader-tip {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .55rem;
+      color: var(--rose);
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.8;
+      padding: 0 12px;
     }
 
     .loader-status {
-      font-size: 0.9rem;
-      color: #ffb3c1;
-      font-style: italic;
-      margin-bottom: 25px;
-      min-height: 24px;
+      margin-bottom: 15px;
+      min-height: 20px;
     }
 
-    .loading-tip {
-      font-size: 0.85rem;
-      opacity: 0.85;
-      max-width: 400px;
-      text-align: center;
-      line-height: 1.4;
-      padding: 0 10px;
-      color: #ff8fa3;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    #hello-screen {
+    /* Blackout */
+    #scene-blackout {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(135deg, #120104, #260308);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      inset: 0;
+      background: #000;
       z-index: 9998;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-      padding: 20px;
-      text-align: center;
+      transition: opacity 1s ease;
     }
 
-    #hello-screen.active {
+    #scene-blackout.active {
       opacity: 1;
       visibility: visible;
     }
 
-    .hello-title {
-      font-size: 2.6rem;
-      color: #fff;
-      margin-bottom: 30px;
-      font-weight: 600;
-      text-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
-      line-height: 1.3;
-      white-space: pre-line;
-      min-height: 130px;
-    }
-
-    .enter-btn {
-      background: linear-gradient(135deg, #800f2f, #c9184a);
-      border: 2px solid #ff4d6d;
-      color: #fff;
-      padding: 12px 36px;
-      font-size: 1.1rem;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(201, 24, 74, 0.4);
-      transition: all 0.2s ease;
-    }
-
-    .enter-btn:hover {
-      background: linear-gradient(135deg, #c9184a, #ff4d6d);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(255, 77, 109, 0.6);
-    }
-
-    .main-page-container {
+    /* Welcome */
+    #scene-welcome {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(5, 3, 6, .78), rgba(8, 3, 8, .48)), url('https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ffab1a88641f559fbefdcbe5f296b5bb.gif') center/cover no-repeat;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 12px;
-      width: 100%;
-      max-width: 1100px;
-    }
-
-    #widget-wrapper {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 20px;
-      width: 100%;
-      min-height: 580px;
-      background: linear-gradient(145deg, #1a0205, #26040a);
-      border: 3px solid #590d22;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      color: #ffdce5;
-      position: relative;
-      overflow: hidden;
+      z-index: 9997;
       opacity: 0;
-      transform: translateY(20px);
-      transition: transform 0.5s ease, opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease, border 0.5s ease;
-      pointer-events: none;
-      max-height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      border-width: 0;
       visibility: hidden;
+      transition: opacity 1s ease;
+      padding: 28px;
+      overflow-y: auto;
     }
 
-    #widget-wrapper.visible {
+    #scene-welcome.active {
       opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-      max-height: 700px;
-      padding: 20px;
-      border-width: 3px;
       visibility: visible;
     }
 
-    .sidebar {
-      background: linear-gradient(180deg, #140103, #1f0307);
-      border-radius: 14px;
-      padding: 16px;
-      border: 2px solid #420716;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .sidebar-brand {
-      text-align: center;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
+    .welcome-container {
+      width: min(1200px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
       align-items: center;
-      gap: 8px;
+      gap: clamp(28px, 6vw, 85px);
     }
 
-    .sidebar-logo {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #ff4d6d;
-      box-shadow: 0 4px 12px rgba(201, 24, 74, 0.3);
+    .welcome-copy {
+      animation: fadeUp .9s ease both;
     }
 
-    .sidebar-brand h2 {
-      font-size: 1.1rem;
-      color: #fff;
-      font-weight: 600;
+    .welcome-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 3px 3px 0 var(--blood), 0 0 25px rgba(255, 77, 109, .4);
+      margin-bottom: 22px;
     }
 
-    .nav-links {
+    .welcome-sub {
+      font-size: .95rem;
+      color: var(--rose);
+      line-height: 1.9;
+      max-width: 470px;
+    }
+
+    .welcome-card {
+      padding: 26px;
+      background: rgba(13, 7, 12, .88);
+      border: 1px solid var(--gold);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, .6);
+      backdrop-filter: blur(12px);
+      animation: fadeUp .9s .15s both;
+    }
+
+    .welcome-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      margin-bottom: 16px;
+    }
+
+    .welcome-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .w-tab-btn {
+      background: rgba(22, 10, 15, .8);
+      border: 1px solid var(--border);
+      color: var(--rose);
+      font-family: Inter, sans-serif;
+      font-size: .82rem;
+      padding: 12px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .w-tab-btn:hover, .w-tab-btn.active {
+      border-color: var(--gold);
+      color: var(--paper);
+      background: var(--blood);
+    }
+
+    .welcome-tab-content {
+      min-height: 130px;
+      color: var(--rose);
+      font-size: .9rem;
+      line-height: 1.8;
+    }
+
+    .welcome-tab-content h3 {
+      color: var(--paper);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .welcome-tab-content ul {
+      padding-left: 20px;
+    }
+
+    .welcome-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 18px 0;
+    }
+
+  
+.open-btn {
+  display: block;
+  width: 100%;
+  background: var(--blood);
+  border: 1px solid var(--gold);
+  color: var(--paper);
+  font-family: 'Press Start 2P', monospace;
+  font-size: .65rem;
+  line-height: 1.8;
+  padding: 15px 12px;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 1;
+  transition: background .2s;
+}
+
+.open-btn.slide-in {
+  transform: none;
+  opacity: 1;
+}
+
+.open-btn:hover {
+  background: var(--crimson);
+  box-shadow: 7px 7px 0 #000;
+}
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+ 
+.kitts-tip-card {
+  background: rgba(22, 11, 18, .96);
+  border: 1px solid #6b3049;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+  backdrop-filter: blur(12px);
+  animation: fadeUp .5s ease both;
+}
+
+.kitts-tip-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.kitts-tip-sparkle {
+  color: #ff9bc2;
+  font-size: 1.15rem;
+}
+
+.kitts-tip-label {
+  color: #ffb4d2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.kitts-tip-counter {
+  margin-left: auto;
+  color: #c9a8b7;
+  font-family: 'Press Start 2P', monospace;
+  font-size: .42rem;
+  white-space: nowrap;
+}
+
+.kitts-tip-message {
+  color: #fff0f6;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  min-height: 42px;
+  overflow-wrap: anywhere;
+}
+
+.kitts-tip-divider {
+  height: 1px;
+  background: #543040;
+  margin: 15px 0 10px;
+}
+
+.kitts-tip-footer {
+  color: #c9a8b7;
+  font-size: .72rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .kitts-tip-card {
+    padding: 16px;
+  }
+
+  .kitts-tip-message {
+    font-size: 1.15rem;
+  }
+}
+   
+    /* Main interface */
+    #scene-main {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(180deg, rgba(8, 5, 7, .75), rgba(15, 6, 11, .92)), url('https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ffab1a88641f559fbefdcbe5f296b5bb.gif') center/cover fixed;
+      display: none;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity .6s ease;
+      z-index: 1;
+    }
+
+    #scene-main.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .main-layout {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) 250px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--gold);
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, .7);
+      padding: 18px;
+      backdrop-filter: blur(6px);
+      min-width: 0;
+    }
+
+    .panel-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .58rem;
+      color: var(--rose);
+      border-bottom: 1px dashed var(--crimson);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.8;
+    }
+
+    .owner-sidebar, .bot-sidebar, .center-section {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
     }
 
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: #ffdce5;
-      padding: 10px 14px;
-      text-align: left;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
+    .owner-card, .member-card, .bot-card {
       display: flex;
       align-items: center;
       gap: 10px;
-      transition: background 0.2s, color 0.2s, transform 0.1s;
+      background: rgba(30, 14, 22, .8);
+      border: 1px solid var(--border);
+      padding: 9px;
+      min-width: 0;
     }
 
-    .nav-btn:hover {
-      background-color: rgba(201, 24, 74, 0.2);
-      color: #ffb3c1;
+    .owner-card img, .member-card img, .bot-card img {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border: 1px solid var(--gold);
+      object-fit: cover;
     }
 
-    .nav-btn.active {
-      background: linear-gradient(135deg, #800f2f, #c9184a);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(128, 15, 47, 0.4);
+    .owner-info {
+      min-width: 0;
     }
 
-    .content-area {
-      background: linear-gradient(145deg, #160104, #210308);
-      border-radius: 14px;
-      border: 2px solid #420716;
-      padding: 20px;
+    .owner-info h4 {
+      font-size: .85rem;
+      overflow-wrap: anywhere;
+    }
+
+    .owner-info span {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .42rem;
+      color: var(--bright-red);
+    }
+
+    .center-section {
+      gap: 16px;
+    }
+
+    .nav-bar-main {
       display: flex;
-      flex-direction: column;
-      position: relative;
-      min-height: 500px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      background: var(--panel-bg);
+      border: 1px solid var(--gold);
+      padding: 12px 18px;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, .5);
+    }
+
+    .nav-bar-main h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-buttons-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn-main {
+      background: var(--blood);
+      border: 1px solid var(--gold);
+      color: var(--paper);
+      font-family: 'Press Start 2P', monospace;
+      font-size: .48rem;
+      padding: 9px 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .nav-btn-main.active, .nav-btn-main:hover {
+      background: var(--crimson);
+    }
+
+
+    .tab-content-area {
+      background: var(--panel-bg);
+      border: 1px solid var(--gold);
+      padding: 20px;
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, .7);
+      min-height: 480px;
+      max-height: 650px;
+      overflow-y: auto;
     }
 
     .tab-pane {
       display: none;
-      flex-direction: column;
-      flex-grow: 1;
     }
 
     .tab-pane.active {
-      display: flex;
+      display: block;
     }
-
-    .dash-header {
-      background: linear-gradient(135deg, #2b040a, #38050e);
-      border-radius: 10px;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      border: 1px solid #66071a;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .dash-header h3 {
-      font-size: 1.3rem;
-      color: #fff;
-    }
-
-    .stats-container {
-      display: flex;
-      gap: 10px;
-    }
-
-    .stat-badge {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #800f2f, #c9184a);
-      padding: 4px 12px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(128, 15, 47, 0.4);
-    }
-
-    .members-wrapper {
-      flex-grow: 1;
-      max-height: 380px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding-right: 4px;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-    }
-
-    .title-owners { color: #ff4d6d !important; }
-    .title-admins { color: #ff758f !important; }
-    .title-mods { color: #ff8fa3 !important; }
-    .title-members { color: #ffffff !important; }
 
     .member-grid {
-      list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 8px;
-    }
-
-    .member-item {
-      display: flex;
-      align-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 10px;
-      background: linear-gradient(135deg, #2b050b, #380710);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      border: 1px solid #590d22;
-      color: #ffdce5;
+      margin: 10px 0 20px;
+      list-style: none;
     }
 
-    .member-item img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid #ff4d6d;
+    .member-card span, .bot-card span {
+      font-size: .82rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .member-status {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      min-width: 9px;
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
       border-radius: 50%;
       margin-left: auto;
       background: #747f8d;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
     }
 
-    .member-status.online { background: #3ba55d; box-shadow: 0 0 6px rgba(59, 165, 93, 0.65); }
-    .member-status.idle { background: #faa61a; box-shadow: 0 0 6px rgba(250, 166, 26, 0.5); }
-    .member-status.dnd { background: #ed4245; box-shadow: 0 0 6px rgba(237, 66, 69, 0.5); }
-
-    .divider {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #590d22, transparent);
-      margin: 8px 0;
-      width: 100%;
+    .status-dot.online {
+      background: #3ba55d;
+      box-shadow: 0 0 5px #3ba55d;
     }
 
-    .rules-content {
-      flex-grow: 1;
-      overflow-y: auto;
-      background: rgba(43, 5, 11, 0.4);
-      border: 1px solid #590d22;
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #ffccd5;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .status-dot.idle {
+      background: #faa61a;
+      box-shadow: 0 0 5px #faa61a;
     }
 
-    .rules-content ol {
+    .status-dot.dnd {
+      background: #ed4245;
+      box-shadow: 0 0 5px #ed4245;
+    }
+
+    .bot-card {
+      border-style: dashed;
+      border-color: var(--crimson);
+    }
+
+    .persistent-info {
+      font-size: .85rem;
+      line-height: 1.7;
+      color: var(--rose);
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    .rules-list {
       padding-left: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
-      height: 100%;
+      gap: 8px;
+      font-size: .85rem;
+      line-height: 1.7;
     }
 
-    .events-grid {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      flex-grow: 1;
-      gap: 10px;
-      max-height: 400px;
+    .rules-list li::marker {
+      color: var(--bright-red);
     }
 
-    .feature-card {
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      border: 1px solid #590d22;
-      color: #ffffff;
-      background: linear-gradient(135deg, #2b050b, #380710);
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-      text-align: left;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #380710, #4a0916);
-      border-color: #ff4d6d;
-    }
-
-    .feature-card h4 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #ff4d6d;
-    }
-
-    .feature-card p {
-      font-size: 0.82rem;
-      opacity: 0.85;
-      line-height: 1.3;
-      color: #ffb3c1;
-    }
-
+    /* Modals and music */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(10, 1, 2, 0.75);
-      backdrop-filter: blur(5px);
+      inset: 0;
+      background: rgba(5, 3, 6, .85);
+      backdrop-filter: blur(4px);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 99999;
+      z-index: 10010;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition: .3s;
+      padding: 18px;
     }
 
     .modal-overlay.active {
@@ -506,481 +578,349 @@
     }
 
     .modal-box {
-      background: linear-gradient(145deg, #1c0205, #2b050b);
-      border: 3px solid #800f2f;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 520px;
-      max-height: 85vh;
+      background: #130e14;
+      border: 1px solid var(--gold);
       padding: 24px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-      color: #ffdce5;
-      position: relative;
+      width: min(500px, 100%);
+      max-height: 85vh;
+      overflow: auto;
+      box-shadow: 8px 8px 0 #000;
+      color: var(--paper);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid rgba(255, 77, 109, 0.3);
-      padding-bottom: 12px;
+      gap: 12px;
+      border-bottom: 1px dashed var(--crimson);
+      padding-bottom: 10px;
       margin-bottom: 15px;
-    }
-
-    .modal-header h3 {
-      font-size: 1.2rem;
-      color: #fff;
     }
 
     .modal-close {
       background: transparent;
-      border: none;
-      color: #ffdce5;
-      font-size: 1.4rem;
+      border: 0;
+      color: var(--paper);
+      font-size: 1.2rem;
       cursor: pointer;
-      padding: 4px 8px;
-      line-height: 1;
-      transition: color 0.2s;
     }
 
-    .modal-close:hover {
-      color: #ff4d6d;
-    }
-
-    .modal-body {
-      overflow-y: auto;
-      flex-grow: 1;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #ffccd5;
-      margin-bottom: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-   
-#music-toggle {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  width: 58px;
-  height: 58px;
-  border: 2px solid #ff8fa3;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c9184a, #800f2f);
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 10001;
-  box-shadow: 0 5px 22px rgba(201, 24, 74, 0.5);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-#music-toggle:hover {
-  transform: scale(1.09);
-  box-shadow: 0 0 25px rgba(255, 77, 109, 0.65);
-}
-
-#music-toggle:focus-visible,
-#music-close:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 4px;
-}
-
-#music-popup {
-  display: none;
-  position: fixed;
-  right: 24px;
-  bottom: 94px;
-  width: 340px;
-  max-width: calc(100vw - 32px);
-  padding: 12px;
-  background: linear-gradient(145deg, #1a0205, #26040a);
-  border: 2px solid #800f2f;
-  border-radius: 18px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
-  z-index: 10000;
-  color: #ffdce5;
-}
-
-#music-popup.open {
-  display: block;
-  animation: musicPopupIn 0.22s ease-out;
-}
-
-.music-popup-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 4px 2px 12px;
-}
-
-.music-popup-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #ff8fa3;
-}
-
-.music-popup-label > i {
-  font-size: 22px;
-}
-
-.music-popup-label div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.music-popup-label strong {
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-
-.music-popup-label small {
-  color: #ffb3c1;
-  font-size: 11px;
-}
-
-#music-close {
-  background: transparent;
-  border: none;
-  color: #ffdce5;
-  font-size: 21px;
-  cursor: pointer;
-  padding: 5px;
-}
-
-#music-close:hover {
-  color: #ff4d6d;
-}
-
-#music-popup iframe {
-  display: block;
-  width: 100%;
-  height: 152px;
-  border: 0;
-  border-radius: 12px;
-}
-
-@keyframes musicPopupIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 480px) {
-  #music-toggle {
-    right: 16px;
-    bottom: 16px;
-  }
-
-  #music-popup {
-    right: 16px;
-    bottom: 86px;
-  }
-}
-
-
-    .server-invite-link {
-      display: inline-block;
-      width: auto;
-      min-width: 160px;
-      text-align: center;
-      background: linear-gradient(135deg, #800f2f, #c9184a);
-      color: #ffffff;
-      text-decoration: none;
-      padding: 9px 20px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(128, 15, 47, 0.4);
-      border: 1px solid #ff4d6d;
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .server-invite-link:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #c9184a, #ff4d6d);
-      box-shadow: 0 6px 18px rgba(255, 77, 109, 0.6);
-    }
-
-    .external-footer-bar {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .dynamic-tip-container {
-      text-align: center;
-      font-size: 0.8rem;
-      opacity: 0.85;
-      font-style: italic;
-      color: #ffdce5;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-      min-height: 20px;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    .interface-toggle-btn {
-      background: linear-gradient(135deg, #800f2f, #c9184a);
-      border: 2px solid #ff4d6d;
-      opacity: 0.6;
-      color: #fff;
-      padding: 8px 24px;
-      font-size: 0.95rem;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      border-radius: 20px;
+    .music-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 10020;
+      width: 50px;
+      height: 50px;
+      background: var(--blood);
+      border: 1px solid var(--gold);
+      color: var(--paper);
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-      transition: all 0.2s ease;
+      box-shadow: 4px 4px 0 #000;
+      font-size: 1.1rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity .3s;
     }
-    
-    .interface-toggle-btn:hover {
-      background: linear-gradient(135deg, #c9184a, #ff4d6d);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5);
+
+    .music-float.visible {
+      visibility: visible;
       opacity: 1;
     }
 
-    @media (max-width: 768px) {
-      #widget-wrapper.visible {
+    .music-popup {
+      position: fixed;
+      right: 20px;
+      bottom: 80px;
+      z-index: 10015;
+      background: #130e14;
+      border: 1px solid var(--gold);
+      padding: 12px;
+      box-shadow: 6px 6px 0 #000;
+      display: none;
+      width: min(320px, calc(100vw - 40px));
+    }
+
+    .music-popup.active {
+      display: block;
+    }
+
+    .music-popup iframe {
+      width: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .small-action {
+      margin-top: 12px;
+      background: var(--blood);
+      border: 1px solid var(--gold);
+      color: var(--paper);
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    @media(max-width: 1050px) {
+      .main-layout {
         grid-template-columns: 1fr;
-        height: auto;
       }
-      .sidebar {
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
+      .nav-bar-main {
+        align-items: flex-start;
+        flex-direction: column;
       }
-      .nav-links {
-        flex-direction: row;
+      .tab-content-area {
+        max-height: none;
       }
-      .sidebar-brand {
-        display: none;
+      .main-layout > .panel {
+        order: 2;
+      }
+      .center-section {
+        order: 1;
+      }
+    }
+
+    @media(max-width: 760px) {
+      #scene-welcome {
+        align-items: flex-start;
+        padding: 24px 16px;
+      }
+      .welcome-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin: auto;
+      }
+      .welcome-heading {
+        font-size: clamp(2.8rem, 12vw, 4.5rem);
+      }
+      .welcome-card {
+        padding: 20px;
+      }
+      .open-btn {
+        font-size: .58rem;
+      }
+      #scene-main {
+        padding: 14px;
+      }
+      .nav-buttons-group {
+        width: 100%;
+      }
+      .nav-btn-main {
+        flex: 1;
+        padding: 10px 6px;
+        font-size: .42rem;
+      }
+      .member-grid {
+        grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+      }
+      .loader-title {
+        font-size: 1.7rem;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <div id="loading-screen">
-    <img src="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg" alt="Logo" class="loader-logo">
+  <div id="scene-loading">
+    <img src="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg" alt="Kitt's Lounge logo" class="loader-logo">
     <div class="loader-title">Kitt's Lounge</div>
-    <div class="loader-bar-container">
+    <div class="loader-bar-box">
       <div id="loader-bar-fill" class="loader-bar-fill"></div>
     </div>
-    <div id="loader-status" class="loader-status">~ Loading... ~</div>
-    <div id="loading-tip" class="loading-tip">Tip: Cozy and warm... like your bed!</div>
+    <div id="loader-status" class="loader-status">~ Connecting to Kitt's Lounge... ~</div>
+    <div id="loader-tip" class="loader-tip">Tip: Cozy and warm... like your bed!</div>
   </div>
 
-  <div id="hello-screen">
-    <div id="typed-hello-title" class="hello-title"></div>
-    <button class="enter-btn" onclick="enterSite()">Open Interface</button>
-  </div>
+  <div id="scene-blackout"></div>
 
-  <div id="lounge-modal" class="modal-overlay" onclick="closeModalOnOutside(event)">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="modal-title">Activity Title</h3>
-        <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+  <div id="scene-welcome" aria-label="Welcome to Kitt's Lounge">
+    <div class="welcome-container">
+      <div class="welcome-copy">
+        <h1 class="welcome-heading">Kitt's Lounge</h1>
+        <p class="welcome-sub">✦ A chaotic but silent sanctuary ✦<br><br>Greetings, it is a pleasure to have you here... Take a look around ♡</p>
       </div>
-      <div class="modal-body" id="modal-content"></div>
-      <div style="text-align: center;">
-        <a id="modal-invite-link" class="server-invite-link" href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener">[ Join server ]</a>
-      </div>
+      <section class="welcome-card" aria-label="Welcome information">
+        <h2 id="welcome-panel-title">Before you enter...</h2>
+        <div class="welcome-tabs" role="tablist" aria-label="Welcome information tabs">
+          <button class="w-tab-btn active" data-wtab="welcome" role="tab" aria-selected="true"><i class="fa-solid fa-house"></i> Welcome</button>
+          <button class="w-tab-btn" data-wtab="rules" role="tab" aria-selected="false"><i class="fa-solid fa-book-open"></i> Rules</button>
+          <button class="w-tab-btn" data-wtab="community" role="tab" aria-selected="false"><i class="fa-solid fa-moon"></i> Community</button>
+          <button class="w-tab-btn" data-wtab="music" role="tab" aria-selected="false"><i class="fa-solid fa-music"></i> Music</button>
+        </div>
+        <div id="welcome-tab-content" class="welcome-tab-content" aria-live="polite">
+          <h3>Make yourself at home ♡</h3>
+          Be kind, relax, and enjoy your time in Kitt's Lounge.
+        </div>
+        <div class="welcome-divider"></div>
+        <button id="open-btn" class="open-btn" onclick="openMainInterface('home-tab')">Enter The Lounge ↗</button>
+      </section>
     </div>
   </div>
 
-  
-<button id="music-toggle" aria-label="Open music player" aria-expanded="false">
-  <i class="fa-solid fa-music"></i>
-</button>
+  <div id="scene-main">
+    <div class="main-layout">
+      <aside class="panel">
+        <div class="panel-title">🌹 Owners 🌹</div>
+        <div id="owner-sidebar-list" class="owner-sidebar">
+          <p class="persistent-info">Loading owners...</p>
+        </div>
+        <div style="margin-top:20px">
+          <div class="panel-title">Server Info</div>
+          <p class="persistent-info">Welcome to Kitt's Lounge! Come relax, chat, share your creativity, and enjoy community events.</p>
+          <a href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener noreferrer" class="w-tab-btn" style="display:block;text-align:center;text-decoration:none">[ Join Discord ↗ ]</a>
+        </div>
+      </aside>
 
-<div id="music-popup" role="dialog" aria-label="Kitt's Lounge Radio" aria-hidden="true">
-  <div class="music-popup-header">
-    <div class="music-popup-label">
-      <i class="fa-solid fa-headphones"></i>
-      <div>
-        <strong>KITT'S LOUNGE RADIO</strong>
-        <small>Listen as you browse! ♡</small>
-      </div>
-    </div>
-    <button id="music-close" aria-label="Close music player">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
+      <main class="center-section">
+        <div class="nav-bar-main">
+          <h2 id="interface-server-title">Kitt's Lounge</h2>
+          <div class="nav-buttons-group">
+            <button class="nav-btn-main active" data-main-tab="home-tab" onclick="switchMainTab('home-tab',this)">Home</button>
+            <button class="nav-btn-main" data-main-tab="rules-tab" onclick="switchMainTab('rules-tab',this)">Rules</button>
+            <button class="nav-btn-main" data-main-tab="community-tab" onclick="switchMainTab('community-tab',this)">Community</button>
+          </div>
+        </div>
+        <div class="kitts-tip-card" aria-label="Kitt's Tip">
+  <div class="kitts-tip-header">
+    <i class="fa-solid fa-sparkles kitts-tip-sparkle"></i>
+    <span class="kitts-tip-label">Kitt's Tip</span>
+    <span id="main-tip-counter" class="kitts-tip-counter">01 / 50</span>
   </div>
 
-  <iframe
-    src="https://open.spotify.com/embed/playlist/62Os3fO0Dk12QcdJg8r7ny?theme=0"
-    title="Kitt's playlist"
-    width="100%"
-    height="152"
-    style="border:0; border-radius:12px;"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy">
-  </iframe>
+  <p id="main-tip-message" class="kitts-tip-message">
+    Welcome to Kitt's Lounge! ♡
+  </p>
+
+  <div class="kitts-tip-divider"></div>
+
+  <p class="kitts-tip-footer">
+    A little reminder from Kitt's Lounge ♡
+  </p>
 </div>
-
-
-  <div class="main-page-container">
-    
-    <div id="widget-wrapper">
-      
-      <div class="sidebar">
-        <div>
-          <div class="sidebar-brand">
-            <img src="https://raw.githubusercontent.com/kzzlolz/kitts-lounge/main/ce5aa4756897f37aaafe68c52850b4f9.jpg" alt="Logo" class="sidebar-logo">
-            <h2 id="brand-title">Kitt's Lounge</h2>
-          </div>
-          <div class="nav-links">
-            <button class="nav-btn active" onclick="switchTab('home-tab', this)"><i class="fa-solid fa-house"></i> Home</button>
-            <button class="nav-btn" onclick="switchTab('rules-tab', this)"><i class="fa-solid fa-book-open"></i> Rules</button>
-            <button class="nav-btn" onclick="switchTab('lounge-tab', this)"><i class="fa-solid fa-mug-hot"></i> Lounge</button>
-          </div>
-        </div>
-
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
-          <div style="text-align: center; font-size: 0.7rem; opacity: 0.5; color: #ffb3c1;">
-            Kitt's Lounge v2.7 🐾
-          </div>
-        </div>
-      </div>
-
-      <div class="content-area">
-
-        <div id="home-tab" class="tab-pane active">
-          <div class="dash-header">
-            <h3 id="server-name">Kitt's Lounge</h3>
-            <div class="stats-container">
-              <span class="stat-badge" id="online-count">0 online members</span>
-            </div>
-          </div>
-
-          <div class="members-wrapper">
-            <div>
-              <div class="section-title title-owners">🌹 ᴏᴡɴᴇʀs 🌹</div>
-              <ul id="owner-list" class="member-grid"></ul>
-            </div>
-
-            <div class="divider"></div>
-
-            <div>
-              <div class="section-title title-admins">🌸 ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs 🌸</div>
-              <ul id="admin-list" class="member-grid"></ul>
-            </div>
-
-            <div class="divider"></div>
-
-            <div>
-              <div class="section-title title-mods">💮 ᴍᴏᴅᴇʀᴀᴛᴏʀs 💮</div>
-              <ul id="mod-list" class="member-grid"></ul>
-            </div>
-
-            <div class="divider"></div>
-
-            <div>
-              <div class="section-title title-members">✨ ᴍᴇᴍʙᴇʀs ✨</div>
-              <ul id="member-list" class="member-grid"></ul>
-            </div>
-          </div>
-        </div>
-
-        <div id="rules-tab" class="tab-pane">
-          <div class="dash-header">
-            <h3>Rules</h3>
-            <span class="stat-badge">Important!</span>
-          </div>
-          <div class="rules-content">
-            <ol>
+        <div class="tab-content-area">
+          <section id="home-tab" class="tab-pane active">
+            <div class="panel-title">🌸 Administrators &amp; Moderators 🌸</div>
+            <ul id="staff-member-grid" class="member-grid"></ul>
+            <div class="panel-title" style="margin-top:20px">✨ Online Members ✨</div>
+            <ul id="online-member-grid" class="member-grid"></ul>
+          </section>
+          <section id="rules-tab" class="tab-pane">
+            <div class="panel-title">Server Rules</div>
+            <ol class="rules-list">
               <li>Do not harass anyone on the server. Treat others with respect and politeness.</li>
               <li>Do not beg for roles, currency, or any other applicable content.</li>
               <li>Do not coordinate or participate in illegal gambling.</li>
               <li>No witch hunting, sexism, racism, or hate speech.</li>
-              <li>No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members.</li>
+              <li>No spam or self-promotion (server invites, advertisements, etc.) without permission from a staff member.</li>
               <li>No NSFW content or NSFW comments about other content, users, or applicable things.</li>
               <li>No impersonating other staff members or users under any circumstances.</li>
               <li>Vulgarities and cuss words are generally allowed, but using them against other users will be counted as hate speech.</li>
-              <li>Do not argue against others on this server. Argue elsewhere which does not annoy other users/servers.</li>
+              <li>Do not argue against others on this server. Take arguments elsewhere so they do not disrupt the community.</li>
             </ol>
-            <p style="margin-top: 10px; font-weight: 600; color: #ff4d6d; font-size: 0.85rem;">Follow <u>Discord's Terms of Service</u> at all times. Failure to follow these rules will result in punishment.</p>
-          </div>
+            <p style="margin-top:15px;font-weight:600;color:var(--bright-red);font-size:.85rem">Follow Discord's Terms of Service at all times.</p>
+          </section>
+          <section id="community-tab" class="tab-pane">
+            <div class="panel-title">Lounge Activities</div>
+            <div class="member-grid">
+              <div class="owner-card" role="button" tabindex="0" onclick="openModal('qotd')" onkeydown="if(event.key==='Enter')openModal('qotd')">
+                <div>
+                  <h4>💬 QOTD</h4>
+                  <span style="color:var(--rose)">Daily Questions</span>
+                </div>
+              </div>
+              <div class="owner-card" role="button" tabindex="0" onclick="openModal('events')" onkeydown="if(event.key==='Enter')openModal('events')">
+                <div>
+                  <h4>🏆 Events</h4>
+                  <span style="color:var(--rose)">Minigames &amp; Trivia</span>
+                </div>
+              </div>
+              <div class="owner-card" role="button" tabindex="0" onclick="openModal('movies')" onkeydown="if(event.key==='Enter')openModal('movies')">
+                <div>
+                  <h4>🎬 Movie Nights</h4>
+                  <span style="color:var(--rose)">Anime &amp; Film Nights</span>
+                </div>
+              </div>
+              <div class="owner-card" role="button" tabindex="0" onclick="openModal('art')" onkeydown="if(event.key==='Enter')openModal('art')">
+                <div>
+                  <h4>🎨 Art Gallery</h4>
+                  <span style="color:var(--rose)">Creative Showcase</span>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
+      </main>
 
-        <div id="lounge-tab" class="tab-pane">
-          <div class="dash-header">
-            <h3>Lounge Activities</h3>
-            <span class="stat-badge">Community</span>
-          </div>
-          <div class="events-grid">
-            <div class="feature-card" onclick="openModal('qotd')">
-              <h4><i class="fa-solid fa-comments"></i> QOTD</h4>
-              <p>Daily questions, engaging conversations & fun thoughts!</p>
-            </div>
-            <div class="feature-card" onclick="openModal('events')">
-              <h4><i class="fa-solid fa-trophy"></i> Events</h4>
-              <p>Take part in exciting community minigames, trivia, and special events!</p>
-            </div>
-            <div class="feature-card" onclick="openModal('movies')">
-              <h4><i class="fa-solid fa-film"></i> Movie Nights</h4>
-              <p>Grab popcorn or snacks & join us!</p>
-            </div>
-            <div class="feature-card" onclick="openModal('art')">
-              <h4><i class="fa-solid fa-palette"></i> Art Gallery</h4>
-              <p>Showcase your artworks with the lounge community!</p>
-            </div>
-          </div>
+      <aside class="panel">
+        <div class="panel-title">🤖 Bot Section</div>
+        <div id="bot-sidebar-list" class="bot-sidebar">
+          <p class="persistent-info">Loading bots...</p>
         </div>
+        <div style="margin-top:25px">
+          <div class="panel-title">Server Stats</div>
+          <p id="stats-counter-text" class="persistent-info">Loading member counts...</p>
+        </div>
+      </aside>
+    </div>
+  </div>
 
+  <div id="activity-modal" class="modal-overlay" onclick="closeModalOnOutside(event)" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title" style="font-family:'Cormorant Garamond',serif;text-transform:uppercase"></h3>
+        <button class="modal-close" onclick="closeModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="modal-body-content" style="font-size:.9rem;line-height:1.6;color:var(--rose);margin-bottom:20px;white-space:pre-line"></div>
+      <div style="text-align:center">
+        <a href="https://discord.gg/nET4TTnRuA" target="_blank" rel="noopener noreferrer" class="w-tab-btn" style="text-decoration:none">[ Join Server ]</a>
       </div>
     </div>
-
-    <div class="external-footer-bar">
-      <button id="toggle-interface-btn-tab" class="interface-toggle-btn" onclick="toggleInterface()">Close</button>
-      <div id="main-tip" class="dynamic-tip-container">Tip: Cozy and warm... like your bed!</div>
-    </div>
-
   </div>
+
+  <div id="music-popup" class="music-popup" aria-hidden="true">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-family:'Press Start 2P',monospace;font-size:.5rem;color:var(--rose)">♫ Midnight Playlist</span>
+      <button onclick="toggleMusicPopup(false)" aria-label="Close music player" style="background:transparent;border:0;color:var(--paper);cursor:pointer">✕</button>
+    </div>
+    <iframe title="Kitt's Lounge Spotify playlist" src="https://open.spotify.com/embed/playlist/62Os3fO0Dk12QcdJg8r7ny?utm_source=generator&amp;theme=0" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+
+  <button id="music-float" class="music-float" onclick="toggleMusicPopup()" title="Music Player" aria-label="Open music player"><i class="fa-solid fa-music"></i></button>
 
   <script>
     const OWNER_IDS = ["1555964902731161711", "1540253480432959539"];
     const ADMIN_ROLE_IDS = ["1526901549396267089"];
     const MOD_ROLE_IDS = ["1528305985519751178"];
-
-    const tipsList = [
-      "Be sure to share this to your friends!",
+    const API_URL = "https://serverwidget.onrender.com/api/guild-data";
+    const tipsList = ["Be sure to share this to your friends!",
       "This server is very kewl!",
-      "Did you know? Sharky is scared of spiders!",
+      "Did you know? Sharky is scared of spiders?",
       "Cozy and warm... like your bed!",
       "Please read the rules!",
       "Did you know? This took weeks to make...",
       "Did you know? There are <total members> members in this server??",
       "We hope you enjoyed staying here!",
-      "There is a suggestion channel in our discord server...",
+      "There are personal rooms in our discord server!",
       "Need a helping hand? Join our discord!",
-      "Did you know? The Owner overworked to the point she drank 8 caffeinated drinks!",
+      "Did you know? Kzz overworked to the point she drank 8 caffeinated drinks!",
       "Most of the members here are from different countries!",
       "We need more people like you!",
       "Meoowwww~",
       "Puurrrr~",
       "Lance is a nerd...",
-      "Turtle is very clingy and loves women!",
+      "Turtle is very clingy...",
       "This server is still under-development! Sorry!",
-      "Kelp is the longest inactive member in the server!",
-      "Kairi is the Owner's Bestie!",
+      "Kelp is the longest inactive member in the server.",
+      "Kairi is the most inactive moderator in the server.",
       "Trusted Friends can own a room!",
       "You can obtain different roles!",
       "There are rare roles you can obtain... Like the Special Role!",
@@ -989,316 +929,359 @@
       "Made with love and warmth",
       "Sharky has anger issues",
       "DemonGod is a money-spender",
-      "Kitt loves cats, hence her name",
-      "Did you know? The Owner owns 7 cats?",
-      "The Bots are self-coded! Except Miyu..."
-    ];
-
+      "DemonGod used to be a great guy",
+      "Kzz loves cats, hence her name",
+      "Did you know? Kzz owns 7 cats?",
+      "All of the Bots are self-coded! Except Miyu...",
+      "Join our MV Channel! We often stream action movies or anime!",
+      "Please take a look around!",
+      "Don't forget to hydrate yourself!",
+      "Did you knoW? Sinclair is above 5'9???",
+      "Do us a favor and join the discord!"];
+    
     const loungeData = {
-      qotd: {
-        title: "Question of the day",
-        code: "8waS8YxVu9",
-        content: "Join our daily question discussions! Share your honest thoughts, chat casually with other lounge members, and read fun answers every single day.\n\n• Hosted by The Inquirer"
-      },
-      events: {
-        title: "Events",
-        code: "8aTFtqX6Rx",
-        content: "Take part in exciting community minigames, trivia, and special events hosted by the Showrunner! Win exclusive server roles and prizes."
-      },
-      movies: {
-        title: "Movie Nights",
-        code: "MWD8EDzkzh",
-        content: "Grab your popcorn and cozy blankets! We host alot of content, such as Anime, Action Movies, and more!\n\n• Hosted by the MV-Streamer!"
-      },
-      art: {
-        title: "Art Gallery",
-        code: "uu2aSDsMNB",
-        content: "A dedicated creative space to share your drawings and artwork with fellow lounge members.\n\n• Artist Tiers: Verified Artists & TBV (To be Verified) Artists.\n• TBV Verification: TBV artists can send at least 3 drawings (IRL or digital) to any administrators or owner(s) to be verified.\n• Policy: AI images or any content inhumane is not allowed and will not be verified until humane skills are shown."
-      }
+      qotd: { title: "Question of the Day", content: "Join our daily question discussions! Share your honest thoughts and chat casually with other lounge members." },
+      events: { title: "Events", content: "Take part in exciting community minigames, trivia, and special events hosted by the Showrunner!" },
+      movies: { title: "Movie Nights", content: "Grab your popcorn and cozy blankets! We host anime, action movies, and more." },
+      art: { title: "Art Gallery", content: "A dedicated creative space to share your drawings and artwork with fellow lounge members." }
     };
 
-    let totalMembersCache = "--";
-    let isInterfaceOpen = true;
+    const welcomeTabs = {
+      welcome: { title: "Before you enter...", heading: "Make yourself at home ♡", html: "Be kind, relax, and enjoy your time in Kitt's Lounge." },
+      rules: { title: "A few house rules", heading: "Keep the lounge cozy", html: "<ul><li>Respect everyone.</li><li>No harassment, hate speech, or witch hunting.</li><li>No spam or unapproved advertising.</li><li>Follow Discord's Terms of Service and staff instructions.</li></ul>" },
+      community: { title: "The community", heading: "Everyone gets a seat ♡", html: "Chat, share art, join movie nights, meet people, or simply hang out. Check the Discord server for announcements and upcoming events." },
+      music: { title: "A little background music", heading: "Midnight Playlist ♫", html: "Settle in with the Kitt's Lounge Spotify playlist. You can open the player after entering the lounge." }
+    };
 
     function getRandomTip() {
-      const randomTip = tipsList[Math.floor(Math.random() * tipsList.length)];
-      return randomTip.replace("<total members>", totalMembersCache);
+      return tipsList[Math.floor(Math.random() * tipsList.length)];
+    }
+   
+    let currentMainTipIndex = -1;
+let mainTipInterval = null;
+
+function rotateMainTip() {
+  if (!Array.isArray(tipsList) || tipsList.length === 0) return;
+
+  const message = document.getElementById('main-tip-message');
+  const counter = document.getElementById('main-tip-counter');
+
+  if (!message || !counter) return;
+
+  let nextIndex;
+
+  if (tipsList.length === 1) {
+    nextIndex = 0;
+  } else {
+    do {
+      nextIndex = Math.floor(Math.random() * tipsList.length);
+    } while (nextIndex === currentMainTipIndex);
+  }
+
+  currentMainTipIndex = nextIndex;
+
+  message.textContent = tipsList[nextIndex];
+  counter.textContent =
+    String(nextIndex + 1).padStart(2, '0') +
+    ' / ' +
+    String(tipsList.length).padStart(2, '0');
+}
+
+function startMainTipRotation() {
+  rotateMainTip();
+
+  if (mainTipInterval !== null) {
+    clearInterval(mainTipInterval);
+  }
+
+  mainTipInterval = setInterval(rotateMainTip, 8000);
+}
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    function startTipRotation() {
-      const tipContainer = document.getElementById('main-tip');
-      if (!tipContainer) return;
-      
-      setInterval(() => {
-        const newTip = `Tip: ${getRandomTip()}`;
-        tipContainer.style.opacity = 0;
-        setTimeout(() => {
-          tipContainer.innerText = newTip;
-          tipContainer.style.opacity = 0.85;
-        }, 250);
-      }, Math.floor(Math.random() * 2000) + 3000);
-    }
+    async function initExperience() {
+      const fill = document.getElementById('loader-bar-fill');
+      const status = document.getElementById('loader-status');
+      document.getElementById('loader-tip').textContent = 'Tip: ' + getRandomTip();
+      fill.style.width = '18%';
 
-    function runTypewriter() {
-      const text = "Hello!<br><br>Welcome to Kitt's Lounge &lt;3";
-      const el = document.getElementById('typed-hello-title');
-      if (!el) return;
-      el.innerHTML = "";
-      let i = 0;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 7000);
+      let guildData = null;
 
-      const timer = setInterval(() => {
-        if (text.charAt(i) === '<') {
-          let tagEnd = text.indexOf('>', i);
-          if (tagEnd !== -1) {
-            el.innerHTML = text.substring(0, tagEnd + 1);
-            i = tagEnd + 1;
-          }
-        } else if (text.charAt(i) === '&') {
-          let entityEnd = text.indexOf(';', i);
-          if (entityEnd !== -1) {
-            el.innerHTML = text.substring(0, entityEnd + 1);
-            i = entityEnd + 1;
-          }
+      try {
+        status.textContent = "~ Waking up the lounge... ~";
+        fill.style.width = '48%';
+        const response = await fetch(API_URL, { cache: 'no-store', signal: controller.signal });
+        if (response.ok) {
+          guildData = await response.json();
         } else {
-          el.innerHTML = text.substring(0, i + 1);
-          i++;
+          throw new Error('API returned ' + response.status);
         }
-
-        if (i >= text.length) {
-          clearInterval(timer);
-        }
-      }, 50);
-    }
-
-    function toggleInterface() {
-      const wrapper = document.getElementById('widget-wrapper');
-      const btnTab = document.getElementById('toggle-interface-btn-tab');
-
-      isInterfaceOpen = !isInterfaceOpen;
-      if (isInterfaceOpen) {
-        wrapper.classList.add('visible');
-        if (btnTab) btnTab.innerText = "Close";
-      } else {
-        wrapper.classList.remove('visible');
-        if (btnTab) btnTab.innerText = "Open";
+      } catch (error) {
+        console.warn('Guild data unavailable; continuing to the website.', error);
+        status.textContent = '~ Preparing the lounge... ~';
+      } finally {
+        clearTimeout(timeout);
       }
+
+      if (guildData) populateGuildData(guildData);
+      else showApiFallback();
+
+      fill.style.width = '100%';
+      status.textContent = "~ Ready! ~";
+      await delay(650);
+
+      const loading = document.getElementById('scene-loading');
+      loading.style.opacity = '0';
+      await delay(800);
+      loading.style.display = 'none';
+
+      const blackout = document.getElementById('scene-blackout');
+      blackout.classList.add('active');
+      await delay(1500);
+      blackout.classList.remove('active');
+
+      const welcome = document.getElementById('scene-welcome');
+      welcome.classList.add('active');
+      await delay(300);
+      document.getElementById('open-btn').classList.add('slide-in');
     }
 
-    function openModal(type) {
-      const modal = document.getElementById('lounge-modal');
-      const titleEl = document.getElementById('modal-title');
-      const contentEl = document.getElementById('modal-content');
-      const inviteEl = document.getElementById('modal-invite-link');
-      
-      if (loungeData[type]) {
-        titleEl.innerText = loungeData[type].title;
-        contentEl.innerText = loungeData[type].content;
-        inviteEl.href = `https://discord.gg/${loungeData[type].code}`;
-        modal.classList.add('active');
-      }
+    function showApiFallback() {
+      const owner = document.getElementById('owner-sidebar-list');
+      const bots = document.getElementById('bot-sidebar-list');
+      owner.replaceChildren();
+      bots.replaceChildren();
+
+      const note = document.createElement('p');
+      note.className = 'persistent-info';
+      note.textContent = 'Owner and member data will appear when the server widget is available.';
+      owner.appendChild(note);
+
+      const botNote = document.createElement('p');
+      botNote.className = 'persistent-info';
+      botNote.textContent = 'Bot list unavailable right now.';
+      bots.appendChild(botNote);
+
+      document.getElementById('staff-member-grid').innerHTML = '<li class="persistent-info">Live staff data is temporarily unavailable.</li>';
+      document.getElementById('online-member-grid').innerHTML = '<li class="persistent-info">Live member data is temporarily unavailable.</li>';
+      document.getElementById('stats-counter-text').textContent = 'Live server statistics are temporarily unavailable.';
     }
 
-    function closeModal() {
-      document.getElementById('lounge-modal').classList.remove('active');
+    function openMainInterface(tabId) {
+      const welcome = document.getElementById('scene-welcome');
+      welcome.classList.remove('active');
+      welcome.style.display = 'none';
+
+      const main = document.getElementById('scene-main');
+      main.style.display = 'block';
+      void main.offsetWidth;
+      main.classList.add('active');
+
+      document.getElementById('music-float').classList.add('visible');
+      startMainTipRotation();
+      switchMainTab(tabId);
     }
 
-    function closeModalOnOutside(event) {
-      if (event.target.id === 'lounge-modal') {
-        closeModal();
-      }
+    function switchMainTab(tabId, button) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === tabId));
+      document.querySelectorAll('.nav-btn-main').forEach(b => b.classList.toggle('active', button ? b === button : b.dataset.mainTab === tabId));
     }
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
+    function selectWelcomeTab(key) {
+      const data = welcomeTabs[key];
+      if (!data) return;
 
-    function switchTab(tabId, btnElement) {
-      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-      
-      document.getElementById(tabId).classList.add('active');
-      btnElement.classList.add('active');
-    }
+      document.querySelectorAll('[data-wtab]').forEach(button => {
+        const selected = button.dataset.wtab === key;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-selected', String(selected));
+      });
 
-const API_URL =
-    "https://serverwidget.onrender.com/api/guild-data";
+      document.getElementById('welcome-panel-title').textContent = data.title;
+      const content = document.getElementById('welcome-tab-content');
+      content.replaceChildren();
 
-async function loadGuildData() {
-    try {
-        const response = await fetch(API_URL, {
-            cache: "no-store"
+      const heading = document.createElement('h3');
+      heading.textContent = data.heading;
+      content.appendChild(heading);
+
+      if (key === 'rules') {
+        const list = document.createElement('ul');
+        ['Respect everyone.', 'No harassment, hate speech, or witch hunting.', 'No spam or unapproved advertising.', 'Follow Discord’s Terms of Service and staff instructions.'].forEach(text => {
+          const li = document.createElement('li');
+          li.textContent = text;
+          list.appendChild(li);
         });
+        content.appendChild(list);
+      } else {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = key === 'welcome' ? "Be kind, relax, and enjoy your time in Kitt's Lounge." : key === 'community' ? "Chat, share art, join movie nights, meet people, or simply hang out. Check the Discord server for announcements and upcoming events." : "Settle in with the Kitt's Lounge Spotify playlist. Open the player once you enter the lounge.";
+        content.appendChild(paragraph);
+      }
 
-        if (!response.ok) {
-            throw new Error(`API returned ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (!Array.isArray(data.members)) {
-            throw new Error("Invalid member data");
-        }
-
-        renderMembers(data);
-        return true;
-    } catch (error) {
-        console.error("Failed to load guild data:", error);
-        return false;
-    }
-}
-
-async function initLoader() {
-    const fill = document.getElementById("loader-bar-fill");
-    const status = document.getElementById("loader-status");
-    const tipEl = document.getElementById("loading-tip");
-
-    tipEl.innerText = `Tip: ${getRandomTip()}`;
-    fill.style.width = "30%";
-    status.innerText = "~ Connecting to Kitt's Lounge... ~";
-
-    await loadGuildData();
-
-    fill.style.width = "100%";
-    status.innerText = "~ Ready! ~";
-
-    setTimeout(() => {
-        document.getElementById("loading-screen").classList.add("hidden");
-        document.getElementById("hello-screen").classList.add("active");
-        runTypewriter();
-    }, 500);
-
-    setInterval(loadGuildData, 5000);
-}
-
-    function enterSite() {
-      document.getElementById('hello-screen').classList.remove('active');
-      document.getElementById('widget-wrapper').classList.add('visible');
-      isInterfaceOpen = true;
-      const btnTab = document.getElementById('toggle-interface-btn-tab');
-      if (btnTab) btnTab.innerText = "Close";
+      if (key === 'music') {
+        const button = document.createElement('button');
+        button.className = 'small-action';
+        button.textContent = 'Enter lounge to play music';
+        button.onclick = () => openMainInterface('home-tab');
+        content.appendChild(button);
+      }
     }
 
-    function renderMembers(data) {
-      const ownerList = document.getElementById("owner-list");
-      const adminList = document.getElementById("admin-list");
-      const modList = document.getElementById("mod-list");
-      const memberList = document.getElementById("member-list");
-      const onlineBadge = document.getElementById("online-count");
+    document.querySelectorAll('[data-wtab]').forEach(button => button.addEventListener('click', () => selectWelcomeTab(button.dataset.wtab)));
 
-      if (!ownerList || !adminList || !modList || !memberList) return;
+    function normalizeRoles(roles) {
+      return Array.isArray(roles) ? roles.map(role => String(role && typeof role === 'object' ? (role.id ?? role.role_id ?? '') : role)) : [];
+    }
 
-      ownerList.innerHTML = "";
-      adminList.innerHTML = "";
-      modList.innerHTML = "";
-      memberList.innerHTML = "";
+    function addMemberCard(container, member, kind, statusClass) {
+      const item = document.createElement('li');
+      item.className = kind === 'owner' ? 'owner-card' : kind === 'bot' ? 'bot-card' : 'member-card';
+
+      const img = document.createElement('img');
+      img.src = typeof member.avatar_url === 'string' ? member.avatar_url : '';
+      img.alt = '';
+      img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
+      img.onerror = () => { img.style.visibility = 'hidden'; };
+      item.appendChild(img);
+
+      const name = document.createElement('span');
+      const displayName = String(member.display_name || member.username || member.name || 'Unknown member');
+      name.textContent = displayName;
+
+     
+    if (kind === 'owner') {
+    const info = document.createElement('div');
+     info.className = 'owner-info';
+
+    const h4 = document.createElement('h4');
+      h4.textContent = displayName;
+
+     const role = document.createElement('span');
+      role.textContent = '[ Owner ]';
+    
+     info.append(h4, role);
+     item.appendChild(info);
+    } else {
+     item.appendChild(name);
+    }
+
+if (kind !== 'bot') {
+  const dot = document.createElement('div');
+  dot.className = 'status-dot ' + statusClass;
+  dot.title = statusClass === 'offline'
+    ? 'Offline'
+    : statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
+
+  item.appendChild(dot);
+}
+
+
+      container.appendChild(item);
+    }
+
+    function populateGuildData(data) {
+      const ownerContainer = document.getElementById('owner-sidebar-list');
+      const staffContainer = document.getElementById('staff-member-grid');
+      const onlineContainer = document.getElementById('online-member-grid');
+      const botContainer = document.getElementById('bot-sidebar-list');
+
+      [ownerContainer, staffContainer, onlineContainer, botContainer].forEach(el => el.replaceChildren());
 
       const members = Array.isArray(data.members) ? data.members : [];
-      const onlineMembers = members.filter(member =>
-        member.status && member.status !== "offline" && !member.bot
-      );
+      const bots = members.filter(m => m.bot);
+      const humans = members.filter(m => !m.bot);
 
-      function makeMemberCard(member) {
-        const li = document.createElement("li");
-        li.className = "member-item";
+      bots.forEach(bot => addMemberCard(botContainer, bot, 'bot', 'offline'));
 
-        const avatar = document.createElement("img");
-        avatar.src = member.avatar_url || "";
-        avatar.alt = member.display_name || member.username || "Member";
-        avatar.loading = "lazy";
+      let ownerCount = 0, staffCount = 0, onlineCount = 0;
 
-        const name = document.createElement("span");
-        name.textContent = member.display_name || member.username || "Unknown member";
+      humans.forEach(member => {
+        const roles = normalizeRoles(member.roles);
+        const id = String(member.id ?? '');
+        const isOwner = OWNER_IDS.includes(id) || OWNER_IDS.some(ownerId => roles.includes(ownerId));
+        const isAdmin = ADMIN_ROLE_IDS.some(roleId => roles.includes(roleId));
+        const isMod = MOD_ROLE_IDS.some(roleId => roles.includes(roleId));
+        const rawStatus = String(member.status || 'offline').toLowerCase();
+        const status = ['online', 'idle', 'dnd'].includes(rawStatus) ? rawStatus : 'offline';
 
-        const status = document.createElement("span");
-        const statusValue = String(member.status || "offline").toLowerCase();
-        const statusClass = ["online", "idle", "dnd"].includes(statusValue) ? statusValue : "offline";
-        status.className = `member-status ${statusClass}`;
-        status.title = statusClass === "dnd" ? "Do Not Disturb" : statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
-        status.setAttribute("aria-label", status.title);
-
-        li.appendChild(avatar);
-        li.appendChild(name);
-        li.appendChild(status);
-        return li;
-      }
-
-      members.filter(member => !member.bot).forEach(member => {
-        const roles = Array.isArray(member.roles) ? member.roles.map(String) : [];
-        const isOwner = OWNER_IDS.some(id => roles.includes(String(id)) || String(member.id) === String(id));
-        const isAdmin = ADMIN_ROLE_IDS.some(id => roles.includes(String(id)));
-        const isMod = MOD_ROLE_IDS.some(id => roles.includes(String(id)));
-
-        // Keep staff visible even when offline.
         if (isOwner) {
-          ownerList.appendChild(makeMemberCard(member));
-        } else if (isAdmin) {
-          adminList.appendChild(makeMemberCard(member));
-        } else if (isMod) {
-          modList.appendChild(makeMemberCard(member));
+          addMemberCard(ownerContainer, member, 'owner', status);
+          ownerCount++;
+        } else if (isAdmin || isMod) {
+          addMemberCard(staffContainer, member, 'member', status);
+          staffCount++;
+        } else if (status !== 'offline') {
+          addMemberCard(onlineContainer, member, 'member', status);
+          onlineCount++;
         }
       });
 
-     members.filter(member => !member.bot).forEach(member => {
-    const roles = Array.isArray(member.roles)
-        ? member.roles.map(String)
-        : [];
+      if (!ownerCount) {
+        const p = document.createElement('p');
+        p.className = 'persistent-info';
+        p.textContent = 'No owners found in the returned member data.';
+        ownerContainer.appendChild(p);
+      }
+      if (!staffCount) {
+        const li = document.createElement('li');
+        li.className = 'persistent-info';
+        li.textContent = 'No administrators or moderators found.';
+        staffContainer.appendChild(li);
+      }
+      if (!onlineCount) {
+        const li = document.createElement('li');
+        li.className = 'persistent-info';
+        li.textContent = 'No online members reported right now.';
+        onlineContainer.appendChild(li);
+      }
+      if (!bots.length) {
+        const p = document.createElement('p');
+        p.className = 'persistent-info';
+        p.textContent = 'No bots found in the returned member data.';
+        botContainer.appendChild(p);
+      }
 
-    const isStaff =
-        OWNER_IDS.some(id =>
-            roles.includes(String(id)) ||
-            String(member.id) === String(id)
-        ) ||
-        ADMIN_ROLE_IDS.some(id => roles.includes(String(id))) ||
-        MOD_ROLE_IDS.some(id => roles.includes(String(id)));
-
-    if (!isStaff) {
-        memberList.appendChild(makeMemberCard(member));
+      const total = Number.isFinite(Number(data.total_members)) ? Number(data.total_members) : members.length;
+      const online = Number.isFinite(Number(data.online_members)) ? Number(data.online_members) : onlineCount;
+      document.getElementById('stats-counter-text').textContent = `Total Members: ${total}\nOnline Members: ${online}`;
     }
-});
 
-      onlineBadge.textContent = `${Number.isFinite(Number(data.online_members)) ? data.online_members : onlineMembers.length} online members`;
-      totalMembersCache = data.total_members ?? members.length;
+    function openModal(type) {
+      if (!loungeData[type]) return;
+      document.getElementById('modal-title').textContent = loungeData[type].title;
+      document.getElementById('modal-body-content').textContent = loungeData[type].content;
+      document.getElementById('activity-modal').classList.add('active');
     }
 
-    
-const musicToggle = document.getElementById("music-toggle");
-const musicPopup = document.getElementById("music-popup");
-const musicClose = document.getElementById("music-close");
+    function closeModal() {
+      document.getElementById('activity-modal').classList.remove('active');
+    }
 
-function setMusicPopup(open) {
-  musicPopup.classList.toggle("open", open);
-  musicToggle.setAttribute("aria-expanded", String(open));
-  musicPopup.setAttribute("aria-hidden", String(!open));
-  musicToggle.setAttribute(
-    "aria-label",
-    open ? "Close music player" : "Open music player"
-  );
-}
+    function closeModalOnOutside(event) {
+      if (event.target.id === 'activity-modal') closeModal();
+    }
 
-musicToggle.addEventListener("click", () => {
-  setMusicPopup(!musicPopup.classList.contains("open"));
-});
+    function toggleMusicPopup(force) {
+      const popup = document.getElementById('music-popup');
+      const show = typeof force === 'boolean' ? force : !popup.classList.contains('active');
+      popup.classList.toggle('active', show);
+      popup.setAttribute('aria-hidden', String(!show));
+    }
 
-musicClose.addEventListener("click", () => {
-  setMusicPopup(false);
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    setMusicPopup(false);
-  }
-});
-
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const tipText = getRandomTip();
-      const mainTipEl = document.getElementById('main-tip');
-      if (mainTipEl) mainTipEl.innerText = `Tip: ${tipText}`;
-      initLoader();
-      startTipRotation();
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeModal();
+        toggleMusicPopup(false);
+      }
     });
+
+    window.addEventListener('DOMContentLoaded', initExperience);
   </script>
 </body>
 </html>
